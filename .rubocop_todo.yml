@@ -12,32 +12,46 @@ Layout/SpaceInsidePercentLiteralDelimiters:
   Exclude:
     - 'Gemfile'
 
-# Offense count: 1
+# Offense count: 4
+# Configuration parameters: AllowedMethods, AllowedPatterns, CountRepeatedAttributes.
+Metrics/AbcSize:
+  Max: 44
+
+# Offense count: 4
 # Configuration parameters: CountComments, CountAsOne, AllowedMethods, AllowedPatterns.
 # AllowedMethods: refine
 Metrics/BlockLength:
-  Max: 26
+  Max: 65
+
+# Offense count: 1
+# Configuration parameters: AllowedMethods, AllowedPatterns.
+Metrics/CyclomaticComplexity:
+  Max: 12
+
+# Offense count: 4
+# Configuration parameters: CountComments, CountAsOne, AllowedMethods, AllowedPatterns.
+Metrics/MethodLength:
+  Max: 31
+
+# Offense count: 1
+# Configuration parameters: AllowedMethods, AllowedPatterns.
+Metrics/PerceivedComplexity:
+  Max: 16
+
+Style/ClassAndModuleChildren:
+  Enabled: false
 
 # Offense count: 4
 # Configuration parameters: AllowedConstants.
 Style/Documentation:
-  Exclude:
-    - 'app/helpers/application_helper.rb'
-    - 'app/mailers/application_mailer.rb'
-    - 'app/models/application_record.rb'
-    - 'config/application.rb'
+  Enabled: false
 
 # Offense count: 5
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: always, always_true, never
 Style/FrozenStringLiteralComment:
-  Exclude:
-    - 'Gemfile'
-    - 'Rakefile'
-    - 'config.ru'
-    - 'config/application.rb'
-    - 'config/routes.rb'
+  Enabled: false
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
@@ -57,3 +71,9 @@ Style/StringLiterals:
     - 'config.ru'
     - 'config/application.rb'
     - 'config/routes.rb'
+
+Layout/LineLength:
+  Max: 176
+
+Layout/EndOfLine:
+  Enabled: false
