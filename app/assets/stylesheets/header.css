@@ -1,0 +1,84 @@
+.header__wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 80px;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.header__logo {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--color-text-dark);
+}
+
+.header__navwrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.menu {
+    display: flex;
+    gap: 15px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.menu__item a {
+    font-size: 16px;
+    color: var(--color-text-dark);
+}
+
+.menu__item a:hover {
+    text-decoration: underline;
+}
+
+.header__register {
+    font-size: 16px;
+    padding: 11px 13px;
+    border-radius: var(--border-radius);
+    background-color: var(--color-bg-dark);
+    transition: 0.2s linear;
+    color: var(--color-bg-light);
+}
+
+.header__register:hover {
+    background-color: var(--color-bg-hover);
+}
+
+.header__login {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header__login #login__svg {
+    transition: 0.2s linear;
+    fill: var(--color-bg-dark);
+}
+
+.header__login:hover #login__svg {
+    fill: var(--color-bg-hover);
+}
+
+.header__login #logout__svg {
+    transition: 0.2s linear;
+    fill: var(--color-bg-dark);
+}
+
+.header__login:hover #logout__svg {
+    fill: var(--color-bg-hover);
+}
+
+.header__login #profile__svg {
+    transition: 0.2s linear;
+    fill: var(--color-bg-dark);
+}
+
+.header__login:hover #profile__svg {
+    fill: var(--color-bg-hover);
+}

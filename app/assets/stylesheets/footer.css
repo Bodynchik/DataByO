@@ -1,0 +1,64 @@
+.footer {
+    background-color: var(--color-bg-dark);
+}
+
+.footer__wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 24px 80px;
+    max-width: 1280px;
+    margin: 0 auto;
+    font-size: 16px;
+    color: var(--color-bg-light);
+}
+
+.uniq-first {
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.uniq-second {
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.menu-footer {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer__icon {
+    display: flex;
+    gap: 20px;
+}
+
+.footer__facebook #facebook__svg {
+    transition: 0.2s linear;
+    fill: var(--color-bg-light);
+}
+
+.footer__facebook:hover #facebook__svg {
+    fill: var(--color-footer-hover);
+}
+
+.footer__instagram #instagram__svg {
+    transition: 0.2s linear;
+    fill: var(--color-bg-light);
+}
+
+.footer__instagram:hover #instagram__svg {
+    fill: var(--color-footer-hover);
+}
+
+.footer__telegram #telegram__svg {
+    transition: 0.2s linear;
+    fill: var(--color-bg-light);
+}
+
+.footer__telegram:hover #telegram__svg {
+    fill: var(--color-footer-hover);
+}

@@ -1,15 +1,44 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
  *= require_self
+ *
+ *= require header.css
+ *
+ *= require registrations.css
+ *
+ *= require footer.css
  */
+
+:root {
+    --color-bg-light: #F7F1F0;
+    --color-bg-medium: #C3A6A0;
+    --color-bg-dark: #A15C38;
+    --color-text-dark: #262220;
+    --color-bg-hover: #754329;
+    --color-footer-hover: #C3A6A0;
+
+    --border-radius: 10px;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Roboto Condensed", sans-serif;
+    background-color: var(--color-bg-light);
+    font-weight: 400;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.button {
+    font-family: "Roboto Condensed", sans-serif;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
