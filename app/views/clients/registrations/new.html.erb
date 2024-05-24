@@ -1,0 +1,14 @@
+<div class="section-reg">
+  <div class="section-reg__wrapper">
+    <h1 class="section-reg__h1">Реєстрація</h1>
+    <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name), class: "section-reg__form") do |f| %>
+      <div><%= f.text_field :surname, placeholder: "Прізвище", class: "form__input", required: true %></div>
+      <div><%= f.text_field :name, placeholder: "Ім'я", class: "form__input", required: true %></div>
+      <div><%= f.text_field :midname, placeholder: "По батькові", class: "form__input" %></div>
+      <div><%= f.email_field :email, placeholder: "Email", class: "form__input", required: true %></div>
+      <div><%= f.text_field :phone, placeholder: "Номер телефону", class: "form__input", required: true %></div>
+      <div><%= f.password_field :password, placeholder: "Пароль", class: "form__input", required: true %></div>
+      <div><%= f.submit "Зареєструватися", class: "button form__btn" %></div>
+    <% end %>
+  </div>
+</div>

@@ -72,6 +72,10 @@ Style/StringLiterals:
     - 'config/application.rb'
     - 'config/routes.rb'
 
+Rails/LexicallyScopedActionFilter:
+  Exclude:
+    - 'app/controllers/clients/registrations_controller.rb'
+
 Layout/LineLength:
   Max: 176
 
