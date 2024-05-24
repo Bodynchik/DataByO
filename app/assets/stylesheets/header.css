@@ -18,6 +18,14 @@
     gap: 20px;
 }
 
+.dropdown select {
+    font-family: "Roboto Condensed", sans-serif;
+    background-color: var(--color-bg-light);
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
 .menu {
     display: flex;
     gap: 15px;

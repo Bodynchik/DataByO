@@ -1,10 +1,10 @@
 <div class="section-reg">
   <div class="section-reg__wrapper">
-    <h1 class="section-reg__h1">Авторизація</h1>
+    <h1 class="section-reg__h1"><%= t('.log_in') %></h1>
     <%= form_with(model: resource, url: session_path(resource_name), class: "section-reg__form") do |f| %>
       <div><%= f.email_field :email, placeholder: "Email", class: "form__input" %></div>
-      <div><%= f.password_field :password, placeholder: "Пароль", class: "form__input" %></div>
-      <div><%= f.submit "Увійти", class: "button form__btn" %></div>
+      <div><%= f.password_field :password, placeholder: t('clients.registrations.new.pass'), class: "form__input" %></div>
+      <div><%= f.submit t('.sign_in'), class: "button form__btn" %></div>
     <% end %>
   </div>
 </div>
