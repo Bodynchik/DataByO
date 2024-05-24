@@ -6,6 +6,8 @@
  *= require registrations.css
  *
  *= require footer.css
+ *
+ *= require home.css
  */
 
 :root {
@@ -30,6 +32,10 @@ body {
     margin: 0;
 }
 
+h1, h2, p {
+    margin: 0;
+}
+
 a {
     text-decoration: none;
 }
@@ -41,4 +47,9 @@ a {
     border: none;
     background: none;
     cursor: pointer;
+}
+
+.page-container {
+    display: grid;
+    justify-content: center;
 }
