@@ -1,0 +1,27 @@
+uk:
+  en: "Англійська"
+  uk: "Українська"
+  clients:
+    registrations:
+      new:
+        surname: "Прізвище"
+        name: "Ім'я"
+        mid_name: "По батькові"
+        phone: "Номер телефону"
+        pass: "Пароль"
+        register: "Зареєструватися"
+    sessions:
+      new:
+        log_in: "Авторизація"
+        sign_in: "Увійти"
+  shared:
+    footer:
+      contact_info: "Контактні дані:"
+      address_info: "м. Запоріжжя, просп. Соборний, буд. 130"
+      right_info: "© 2024 PageHub. Всі права захищені. Ваш ключ до світу книжкових пригод"
+      follow_info: "Слідкуйте за нами:"
+    header:
+      service: "Про сервіс"
+      books: "Книги"
+      contacts: "Контакти"
+      registration: "Реєстрація"
