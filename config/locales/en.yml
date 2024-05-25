@@ -14,6 +14,13 @@ en:
       new:
         log_in: "Login"
         sign_in: "Sign in"
+    profiles:
+      profile: "Profile"
+      card: "Library card"
+      reserve: "Reservations"
+      borrow: "Borrowings"
+      review: "Reviews"
+      save: "Save"
   shared:
     footer:
       contact_info: "Contact information:"
@@ -25,3 +32,18 @@ en:
       books: "Books"
       contacts: "Contacts"
       registration: "Registration"
+  home:
+    about_title: "About service"
+    about_text_1: "PageHub is an innovative web application designed to make access to the world of books even more convenient and exciting. With PageHub"
+    about_text_2: "you can easily browse the catalog of books available in our library and immediately book and borrow the necessary publications."
+    option_title_1: "View the assortment"
+    option_text_1: "Explore the variety of books available in our library, search by genre, author, and publisher."
+    option_title_2: "Reviews and ratings"
+    option_text_2: "Share your impressions of the books you have read, leave reviews and give ratings for other users."
+    option_title_3: "Booking and borrowing"
+    option_text_3: "Reserve books for later borrowing, control the timing, and return them at your convenience."
+    option_title_4: "Personal profile"
+    option_text_4: "Manage your loans, view your history, change your settings, and more."
+    news_title: "New books"
+    best_title: "Best books"
+    popular_title: "Popular books"

@@ -3,11 +3,11 @@
 <section class="category-n-profile">
   <div class="category-container">
     <%= form_with url: clients_profile_path(current_client), method: :get, local: true, class: 'form-category-container' do %>
-      <%= button_tag 'Профіль', type: 'submit', name: 'tab', value: 'personal', class: 'single-category-btn' %>
-      <%= button_tag 'Читацький квиток', type: 'submit', name: 'tab', value: 'card', class: 'single-category-btn' %>
-      <%= button_tag 'Резервації', type: 'submit', name: 'tab', value: 'reserve', class: 'single-category-btn' %>
-      <%= button_tag 'Запозичення', type: 'submit', name: 'tab', value: 'borrow', class: 'single-category-btn' %>
-      <%= button_tag 'Рев\'ю', type: 'submit', name: 'tab', value: 'review', class: 'single-category-btn' %>
+      <%= button_tag t('clients.profiles.profile'), type: 'submit', name: 'tab', value: 'personal', class: 'single-category-btn' %>
+      <%= button_tag t('clients.profiles.card'), type: 'submit', name: 'tab', value: 'card', class: 'single-category-btn' %>
+      <%= button_tag t('clients.profiles.reserve'), type: 'submit', name: 'tab', value: 'reserve', class: 'single-category-btn' %>
+      <%= button_tag t('clients.profiles.borrow'), type: 'submit', name: 'tab', value: 'borrow', class: 'single-category-btn' %>
+      <%= button_tag t('clients.profiles.review'), type: 'submit', name: 'tab', value: 'review', class: 'single-category-btn' %>
     <% end %>
   </div>
 
@@ -15,19 +15,19 @@
     <% if @tab == 'personal' %>
       <%= form_with model: current_client, url: clients_profile_path, method: :patch do |form| %>
         <div class="form-group">
-          <%= form.label :surname, 'Прізвище' %>
+          <%= form.label :surname, t('clients.registrations.new.surname') %>
           <%= form.text_field :surname, class: 'form-control', value: current_client.surname %>
         </div>
         <div class="form-group">
-          <%= form.label :name, "Ім'я" %>
+          <%= form.label :name, t('clients.registrations.new.name') %>
           <%= form.text_field :name, class: 'form-control', value: current_client.name %>
         </div>
         <div class="form-group">
-          <%= form.label :midname, 'По батькові' %>
+          <%= form.label :midname, t('clients.registrations.new.mid_name') %>
           <%= form.text_field :midname, class: 'form-control', value: current_client.midname %>
         </div>
         <div class="form-group">
-          <%= form.label :phone, 'Номер телефону' %>
+          <%= form.label :phone, t('clients.registrations.new.phone') %>
           <%= form.text_field :phone, class: 'form-control', value: current_client.phone %>
         </div>
         <div class="form-group">
@@ -35,7 +35,7 @@
           <%= form.email_field :email, class: 'form-control', value: current_client.email %>
         </div>
         <div class="button-personal-container">
-          <%= form.submit 'Зберегти', class: 'btn btn-primary' %>
+          <%= form.submit t('clients.profiles.save'), class: 'btn btn-primary' %>
         </div>
       <% end %>
     <% elsif @tab == 'card' %>
