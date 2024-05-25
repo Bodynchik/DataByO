@@ -13,7 +13,7 @@
 
   <div class="profile-container">
     <% if @tab == 'personal' %>
-      <%= form_with model: current_client, url: clients_profile_path(current_client), method: :patch do |form| %>
+      <%= form_with model: current_client, url: clients_profile_path, method: :patch do |form| %>
         <div class="form-group">
           <%= form.label :surname, 'Прізвище' %>
           <%= form.text_field :surname, class: 'form-control', value: current_client.surname %>
@@ -64,11 +64,16 @@
             method: method,
             data: data,
             success: function (response) {
-                // Обробляємо успішний відгук
-                // Наприклад, ви можете відобразити повідомлення про успішне оновлення профілю
+                // Виведення повідомлення про успішне оновлення
+                alert('Дані успішно оновлено');
+                // Або перезавантаження сторінки для показу змін
+                window.location.reload();
             },
             error: function (xhr, status, error) {
                 // Обробляємо помилку
+                alert('Дані не було оновлено');
+                // Або перезавантаження сторінки для показу змін
+                window.location.reload();
                 // Наприклад, ви можете відобразити повідомлення про помилку
             }
         });

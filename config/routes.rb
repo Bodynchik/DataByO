@@ -16,6 +16,5 @@ Rails.application.routes.draw do
     namespace :clients do
       resource :profile, only: [:show, :edit, :update], controller: 'profiles'
     end
-    
   end
 end
