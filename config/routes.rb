@@ -13,4 +13,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "home#index"
+
+  namespace :clients do
+    resource :profile, only: [:show, :edit, :update], controller: 'profiles'
+  end
 end

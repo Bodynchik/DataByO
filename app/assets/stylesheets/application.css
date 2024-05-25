@@ -8,6 +8,8 @@
  *= require footer.css
  *
  *= require home.css
+  *
+ *= require profile.css
  */
 
 :root {

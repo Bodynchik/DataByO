@@ -1,0 +1,76 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<section class="category-n-profile">
+  <div class="category-container">
+    <%= form_with url: clients_profile_path(current_client), method: :get, local: true, class: 'form-category-container' do %>
+      <%= button_tag 'Профіль', type: 'submit', name: 'tab', value: 'personal', class: 'single-category-btn' %>
+      <%= button_tag 'Читацький квиток', type: 'submit', name: 'tab', value: 'card', class: 'single-category-btn' %>
+      <%= button_tag 'Резервації', type: 'submit', name: 'tab', value: 'reserve', class: 'single-category-btn' %>
+      <%= button_tag 'Запозичення', type: 'submit', name: 'tab', value: 'borrow', class: 'single-category-btn' %>
+      <%= button_tag 'Рев\'ю', type: 'submit', name: 'tab', value: 'review', class: 'single-category-btn' %>
+    <% end %>
+  </div>
+
+  <div class="profile-container">
+    <% if @tab == 'personal' %>
+      <%= form_with model: current_client, url: clients_profile_path(current_client), method: :patch do |form| %>
+        <div class="form-group">
+          <%= form.label :surname, 'Прізвище' %>
+          <%= form.text_field :surname, class: 'form-control', value: current_client.surname %>
+        </div>
+        <div class="form-group">
+          <%= form.label :name, "Ім'я" %>
+          <%= form.text_field :name, class: 'form-control', value: current_client.name %>
+        </div>
+        <div class="form-group">
+          <%= form.label :midname, 'По батькові' %>
+          <%= form.text_field :midname, class: 'form-control', value: current_client.midname %>
+        </div>
+        <div class="form-group">
+          <%= form.label :phone, 'Номер телефону' %>
+          <%= form.text_field :phone, class: 'form-control', value: current_client.phone %>
+        </div>
+        <div class="form-group">
+          <%= form.label :email, 'Email' %>
+          <%= form.email_field :email, class: 'form-control', value: current_client.email %>
+        </div>
+        <div class="button-personal-container">
+          <%= form.submit 'Зберегти', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    <% elsif @tab == 'card' %>
+
+    <% elsif @tab == 'reserve' %>
+
+    <% elsif @tab == 'borrow' %>
+
+    <% elsif @tab == 'review' %>
+
+    <% end %>
+  </div>
+</section>
+
+<script>
+    $(document).on('submit', 'form[data-remote="true"]', function (e) {
+        e.preventDefault(); // Зупиняємо звичайну відправку форми
+
+        var form = $(this);
+        var url = form.attr('action');
+        var method = form.attr('method');
+        var data = form.serialize(); // Серіалізуємо дані форми для відправки
+
+        $.ajax({
+            url: url,
+            method: method,
+            data: data,
+            success: function (response) {
+                // Обробляємо успішний відгук
+                // Наприклад, ви можете відобразити повідомлення про успішне оновлення профілю
+            },
+            error: function (xhr, status, error) {
+                // Обробляємо помилку
+                // Наприклад, ви можете відобразити повідомлення про помилку
+            }
+        });
+    });
+</script>
