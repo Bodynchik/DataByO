@@ -11,6 +11,7 @@ class Clients::ProfilesController < ApplicationController
 
   def update
     @client = current_client
+    @client.update(client_params)
     redirect_to clients_profile_path(tab: 'personal')
   end
 
