@@ -18,6 +18,7 @@ ActiveAdmin.register Publisher do
     selectable_column
     id_column
     column :publisher_name
+    actions
   end
 
   filter :publisher_name

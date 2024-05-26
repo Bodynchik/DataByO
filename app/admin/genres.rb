@@ -18,6 +18,7 @@ ActiveAdmin.register Genre do
     selectable_column
     id_column
     column :genre_name
+    actions
   end
 
   filter :genre_name

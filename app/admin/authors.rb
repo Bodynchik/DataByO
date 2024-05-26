@@ -20,6 +20,7 @@ ActiveAdmin.register Author do
     column :author_name
     column :author_surname
     column :author_midname
+    actions
   end
 
   filter :author_name
