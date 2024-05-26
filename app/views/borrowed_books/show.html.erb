@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @borrowed_book %>
+
+<div>
+  <%= link_to "Edit this borrowed book", edit_borrowed_book_path(@borrowed_book) %> |
+  <%= link_to "Back to borrowed books", borrowed_books_path %>
+
+  <%= button_to "Destroy this borrowed book", @borrowed_book, method: :delete %>
+</div>

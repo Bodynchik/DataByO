@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Borrowed books</h1>
+
+<div id="borrowed_books">
+  <% @borrowed_books.each do |borrowed_book| %>
+    <%= render borrowed_book %>
+    <p>
+      <%= link_to "Show this borrowed book", borrowed_book %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New borrowed book", new_borrowed_book_path %>

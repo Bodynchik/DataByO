@@ -1,0 +1,10 @@
+<h1>Editing borrowed book</h1>
+
+<%= render "form", borrowed_book: @borrowed_book %>
+
+<br>
+
+<div>
+  <%= link_to "Show this borrowed book", @borrowed_book %> |
+  <%= link_to "Back to borrowed books", borrowed_books_path %>
+</div>

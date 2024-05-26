@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Returns</h1>
+
+<div id="returns">
+  <% @returns.each do |return| %>
+    <%= render return %>
+    <p>
+      <%= link_to "Show this return", return %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New return", new_return_path %>

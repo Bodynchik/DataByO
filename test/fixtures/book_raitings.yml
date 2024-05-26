@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  book: one
+  client: one
+  rating_value: 1.5
+
+two:
+  book: two
+  client: two
+  rating_value: 1.5

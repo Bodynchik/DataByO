@@ -14,6 +14,13 @@ Rails.application.routes.draw do
     resources :books
     resources :publishers
     resources :authors
+    resources :returns
+    resources :borrowed_books
+    resources :reservations
+    resources :book_reviews
+    resources :book_comments
+    resources :book_raitings
+    resources :library_cards
 
     # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
     # Can be used by load balancers and uptime monitors to verify that the app is live.
