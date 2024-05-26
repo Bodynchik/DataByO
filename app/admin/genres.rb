@@ -4,7 +4,7 @@ ActiveAdmin.register Genre do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :genre_name
+  permit_params :genre_name
   #
   # or
   #
@@ -13,4 +13,19 @@ ActiveAdmin.register Genre do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
+
+  index do
+    selectable_column
+    id_column
+    column :genre_name
+  end
+
+  filter :genre_name
+
+  form do |f|
+    f.inputs do
+      f.input :genre_name
+    end
+    f.actions
+  end
 end

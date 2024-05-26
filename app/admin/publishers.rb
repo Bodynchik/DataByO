@@ -4,7 +4,7 @@ ActiveAdmin.register Publisher do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  # permit_params :publisher_name
+  permit_params :publisher_name
   #
   # or
   #
@@ -13,4 +13,19 @@ ActiveAdmin.register Publisher do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end
+
+  index do
+    selectable_column
+    id_column
+    column :publisher_name
+  end
+
+  filter :publisher_name
+
+  form do |f|
+    f.inputs do
+      f.input :publisher_name
+    end
+    f.actions
+  end
 end
