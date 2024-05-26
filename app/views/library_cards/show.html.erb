@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @library_card %>
+
+<div>
+  <%= link_to "Edit this library card", edit_library_card_path(@library_card) %> |
+  <%= link_to "Back to library cards", library_cards_path %>
+
+  <%= button_to "Destroy this library card", @library_card, method: :delete %>
+</div>

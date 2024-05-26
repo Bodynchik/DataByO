@@ -1,4 +1,9 @@
 class Client < ApplicationRecord
+  has_one :library_card, dependent: :destroy
+
+  has_many :book_raitings, dependent: :destroy
+  has_many :book_comments, dependent: :destroy
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

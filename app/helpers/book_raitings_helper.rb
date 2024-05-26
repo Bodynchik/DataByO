@@ -1,0 +1,2 @@
+module BookRaitingsHelper
+end

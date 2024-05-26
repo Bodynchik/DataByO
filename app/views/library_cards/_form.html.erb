@@ -1,0 +1,32 @@
+<%= form_with(model: library_card) do |form| %>
+  <% if library_card.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(library_card.errors.count, "error") %> prohibited this library_card from being saved:</h2>
+
+      <ul>
+        <% library_card.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :client_id, style: "display: block" %>
+    <%= form.text_field :client_id %>
+  </div>
+
+  <div>
+    <%= form.label :max_reserve_allowed, style: "display: block" %>
+    <%= form.number_field :max_reserve_allowed %>
+  </div>
+
+  <div>
+    <%= form.label :max_borrow_allowed, style: "display: block" %>
+    <%= form.number_field :max_borrow_allowed %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

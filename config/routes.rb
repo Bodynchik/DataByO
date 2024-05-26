@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  resources :returns
+  resources :borrowed_books
+  resources :reservations
+  resources :book_reviews
+  resources :book_comments
+  resources :book_raitings
+  resources :library_cards
   scope '(:locale)', locale: /#{I18n.available_locales.join('|')}/ do
     devise_for :admin_users, ActiveAdmin::Devise.config
     ActiveAdmin.routes(self) rescue ActiveAdmin::DatabaseHitDuringLoad
