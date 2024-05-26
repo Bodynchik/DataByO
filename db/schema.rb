@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 20_240_524_143_831) do
+ActiveRecord::Schema[7.1].define(version: 20_240_525_212_226) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -40,6 +40,46 @@ ActiveRecord::Schema[7.1].define(version: 20_240_524_143_831) do
     t.index ['reset_password_token'], name: 'index_admin_users_on_reset_password_token', unique: true
   end
 
+  create_table 'authors', force: :cascade do |t|
+    t.string 'author_name'
+    t.string 'author_surname'
+    t.string 'author_midname'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+  end
+
+  create_table 'book_authors', force: :cascade do |t|
+    t.bigint 'author_id', null: false
+    t.bigint 'book_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['author_id'], name: 'index_book_authors_on_author_id'
+    t.index ['book_id'], name: 'index_book_authors_on_book_id'
+  end
+
+  create_table 'book_genres', force: :cascade do |t|
+    t.bigint 'genre_id', null: false
+    t.bigint 'book_id', null: false
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['book_id'], name: 'index_book_genres_on_book_id'
+    t.index ['genre_id'], name: 'index_book_genres_on_genre_id'
+  end
+
+  create_table 'books', force: :cascade do |t|
+    t.string 'book_title'
+    t.bigint 'publisher_id', null: false
+    t.integer 'book_year_of_pub'
+    t.string 'isbn'
+    t.integer 'book_amount'
+    t.integer 'book_age_rating'
+    t.float 'book_rating'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['isbn'], name: 'index_books_on_isbn', unique: true
+    t.index ['publisher_id'], name: 'index_books_on_publisher_id'
+  end
+
   create_table 'clients', force: :cascade do |t|
     t.string 'name', default: '', null: false
     t.string 'surname', default: '', null: false
@@ -56,4 +96,24 @@ ActiveRecord::Schema[7.1].define(version: 20_240_524_143_831) do
     t.index ['phone'], name: 'index_clients_on_phone', unique: true
     t.index ['reset_password_token'], name: 'index_clients_on_reset_password_token', unique: true
   end
+
+  create_table 'genres', force: :cascade do |t|
+    t.string 'genre_name'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['genre_name'], name: 'index_genres_on_genre_name', unique: true
+  end
+
+  create_table 'publishers', force: :cascade do |t|
+    t.string 'publisher_name'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['publisher_name'], name: 'index_publishers_on_publisher_name', unique: true
+  end
+
+  add_foreign_key 'book_authors', 'authors'
+  add_foreign_key 'book_authors', 'books'
+  add_foreign_key 'book_genres', 'books'
+  add_foreign_key 'book_genres', 'genres'
+  add_foreign_key 'books', 'publishers'
 end
