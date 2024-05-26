@@ -21,7 +21,7 @@ Metrics/AbcSize:
 # Configuration parameters: CountComments, CountAsOne, AllowedMethods, AllowedPatterns.
 # AllowedMethods: refine
 Metrics/BlockLength:
-  Max: 65
+  Max: 95
 
 # Offense count: 1
 # Configuration parameters: AllowedMethods, AllowedPatterns.
@@ -75,6 +75,9 @@ Style/StringLiterals:
 Rails/LexicallyScopedActionFilter:
   Exclude:
     - 'app/controllers/clients/registrations_controller.rb'
+
+Rails/I18nLocaleTexts:
+  Enabled: false
 
 Layout/LineLength:
   Max: 176

@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  book_title: MyString
+  publisher: one
+  book_year_of_pub: 2024-05-26
+  isbn: MyString
+  book_amount: 1
+  book_age_rating: 1
+  book_rating: 1.5
+
+two:
+  book_title: MyString
+  publisher: two
+  book_year_of_pub: 2024-05-26
+  isbn: MyString
+  book_amount: 1
+  book_age_rating: 1
+  book_rating: 1.5

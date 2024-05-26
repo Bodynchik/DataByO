@@ -1,0 +1,62 @@
+<%= form_with(model: book) do |form| %>
+  <% if book.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(book.errors.count, "error") %> prohibited this book from being saved:</h2>
+
+      <ul>
+        <% book.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :book_title, style: "display: block" %>
+    <%= form.text_field :book_title %>
+  </div>
+
+  <div>
+    <%= form.label :publisher_id, style: "display: block" %>
+    <%= form.select :publisher_id, options_from_collection_for_select(@publishers, :id, :publisher_name) %>
+  </div>
+
+  <div>
+    <%= form.label :book_year_of_pub, style: "display: block" %>
+    <%= form.date_field :book_year_of_pub %>
+  </div>
+
+  <div>
+    <%= form.label :isbn, style: "display: block" %>
+    <%= form.text_field :isbn %>
+  </div>
+
+  <div>
+    <%= form.label :book_amount, style: "display: block" %>
+    <%= form.number_field :book_amount, min: 1 %>
+  </div>
+
+  <div>
+    <%= form.label :book_age_rating, style: "display: block" %>
+    <%= form.number_field :book_age_rating %>
+  </div>
+
+<!--  <div>-->
+    <%#= form.label :book_rating, style: "display: block" %>
+    <%#= form.text_field :book_rating %>
+<!--  </div>-->
+
+  <div>
+    <%= form.label :authors, style: "display: block" %>
+    <%= form.collection_select :author_ids, @all_authors, :id, :full_name, {}, { multiple: true } %>
+  </div>
+
+  <div>
+    <%= form.label :genres, style: "display: block" %>
+    <%= form.collection_select :genre_ids, @all_genres, :id, :genre_name, {}, { multiple: true } %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
