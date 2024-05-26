@@ -1,45 +1,45 @@
-require "test_helper"
+require 'test_helper'
 
 class ReturnsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @return = returns(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get returns_url
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     get new_return_url
     assert_response :success
   end
 
-  test "should create return" do
-    assert_difference("Return.count") do
+  test 'should create return' do
+    assert_difference('Return.count') do
       post returns_url, params: { return: { book_id: @return.book_id, date_of_return: @return.date_of_return, library_card_id: @return.library_card_id } }
     end
 
     assert_redirected_to return_url(Return.last)
   end
 
-  test "should show return" do
+  test 'should show return' do
     get return_url(@return)
     assert_response :success
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get edit_return_url(@return)
     assert_response :success
   end
 
-  test "should update return" do
+  test 'should update return' do
     patch return_url(@return), params: { return: { book_id: @return.book_id, date_of_return: @return.date_of_return, library_card_id: @return.library_card_id } }
     assert_redirected_to return_url(@return)
   end
 
-  test "should destroy return" do
-    assert_difference("Return.count", -1) do
+  test 'should destroy return' do
+    assert_difference('Return.count', -1) do
       delete return_url(@return)
     end
 
