@@ -1,14 +1,37 @@
-<p style="color: green"><%= notice %></p>
-
-<h1>Books</h1>
-
-<div id="books">
-  <% @books.each do |book| %>
-    <%= render book %>
-    <p>
-      <%= link_to "Show this book", book %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New book", new_book_path %>
+<section class="section-books">
+  <div class="section-books__wrapper">
+    <div class="books-filters">
+      <ul class="books-filters__menu">
+        <li class="books-filters__item">Жанри</li>
+        <li class="books-filters__item">Видавництва</li>
+        <li class="books-filters__item">Автори</li>
+        <li class="books-filters__item">Рік видавництва</li>
+        <li class="books-filters__item">Віковий рейтинг</li>
+      </ul>
+    </div>
+    <div class="books-list">
+      <div class="books-sorts">
+        <ul class="books-sorts__menu">
+          <li class="books-sort__link"><%= link_to 'Сортувати за назвою', '#' %></li>
+          <li class="books-sort__link"><%= link_to 'Сортувати за рейтингом', '#' %></li>
+          <li class="books-sort__link"><%= link_to 'Сортувати за популярністю', '#' %></li>
+          <li class="books-sort__link"><%= link_to 'Сортувати за датою додавання', '#' %></li>
+        </ul>
+      </div>
+      <div class="books-list-grid">
+        <% @books.each do |book| %>
+          <%= link_to book_path(book), class: 'books-list__link' do %>
+            <div class="books-list-grid__item">
+              <div class="grid-item__top">
+                <div class="books-list-grid__image"></div>
+                <div class="books-list-grid__title"><%= book.book_title %></div>
+                <div class="books-list-grid__authors"><%= book.authors.map(&:full_name).join(', ') %></div>
+              </div>
+              <div class="grid-item__bottom">В наявності <%= book.book_amount %></div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

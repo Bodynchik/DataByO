@@ -18,9 +18,9 @@
       <%= render 'shared/header' %>
     <% end %>
 
-    <div class="page-container">
-      <%= yield %>
-    </div>
+    <section class="page-container">
+      <div class="page-container__wrapper"><%= yield %></div>
+    </section>
 
     <% unless controller_name == 'sessions' || controller_name == 'registrations' %>
     <%= render 'shared/footer' %>

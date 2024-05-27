@@ -8,8 +8,10 @@
  *= require footer.css
  *
  *= require home.css
-  *
+ *
  *= require profile.css
+ *
+ *= require book.css
  */
 
 :root {
@@ -17,8 +19,11 @@
     --color-bg-medium: #C3A6A0;
     --color-bg-dark: #A15C38;
     --color-text-dark: #262220;
+    --color-text-semi-dark: #454140;
     --color-bg-hover: #754329;
     --color-footer-hover: #C3A6A0;
+    --color-book-hover: #D1B8B4;
+    --color-book-amount: #568A62;
 
     --border-radius: 10px;
 }
@@ -52,6 +57,10 @@ a {
 }
 
 .page-container {
-    display: grid;
-    justify-content: center;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.page-container__wrapper {
+    margin-bottom: 48px;
 }

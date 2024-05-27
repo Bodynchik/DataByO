@@ -1,10 +1,66 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @book %>
-
-<div>
-  <%= link_to "Edit this book", edit_book_path(@book) %> |
-  <%= link_to "Back to books", books_path %>
-
-  <%= button_to "Destroy this book", @book, method: :delete %>
-</div>
+<section class="section-book">
+  <div class="book-container">
+    <div class="book-image"></div>
+    <div class="book-description">
+      <div class="book-description__title">
+        <h1 class="book__h1"><%= @book.book_title %></h1>
+        <p class="book__authors"><%= @book.authors.map(&:full_name).join(', ') %></p>
+        <div class="book__ratings">
+          <div class="book__ratings-image">Рейтинг: <%= @book.book_rating || 0 %>/5 <%= image_tag 'book/star', alt: 'star', class: 'star-image' %></div>
+          <div>(відгуків: , рецензій:)</div>
+        </div>
+      </div>
+      <div class="book-description__genre">
+        <div class="book-description__genre-top">
+          <div class="description-list-container">
+            <span class="description-title">Видавництво</span>
+            <span class="book-description-text"><%= @book.publisher.publisher_name %></span>
+          </div>
+          <div class="description-list-container">
+            <span class="description-title">Рік видання</span>
+            <span class="book-description-text"><%= @book.book_year_of_pub %> рік</span>
+          </div>
+          <div class="description-list-container">
+            <span class="description-title">ISBN</span>
+            <span class="book-description-text"><%= @book.isbn %></span>
+          </div>
+          <div class="description-list-container">
+            <span class="description-title">Вік</span>
+            <span class="book-description-text"><%= @book.book_age_rating %></span>
+          </div>
+          <div class="description-list-container">
+            <span class="description-title">Наявність</span>
+            <span class="book-description-text"><%= @book.book_amount %></span>
+          </div>
+        </div>
+        <div class="description-list-container">
+          <div>
+            <span class="description-title">Жанри</span>
+          </div>
+          <div class="list-genre">
+            <% @book.genres.each do |genre| %>
+              <span class="book-description-text"><%= genre.genre_name %></span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="book-description__reserve">
+        <button class="button button-reserve">Зарезервувати</button>
+        <button class="button button-reserve">Запозичити</button>
+      </div>
+      <div class="book-description__annotation">
+        Опис
+        <div class="book-annotation-text">
+          <%= @book.description %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="book-comments">
+    <h2 class="book-comments__h2">Відгуки та рецензії</h2>
+    <div class="book-comments__buttons">
+      <button class="button button-comment">Залишити відгук</button>
+      <button class="button button-comment">Написати рецензію</button>
+    </div>
+  </div>
+</section>

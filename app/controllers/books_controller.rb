@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   before_action :set_books, only: %i[show edit update destroy]
-  before_action :set_publishers_authors_genres, only: %i[new edit create update]
+  before_action :set_publishers_authors_genres, only: %i[show new edit create update]
 
   # GET /books or /books.json
   def index

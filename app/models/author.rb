@@ -5,7 +5,8 @@ class Author < ApplicationRecord
   validates :author_name, :author_surname, presence: true
 
   def full_name
-    "#{author_surname} #{author_name.first.capitalize}. #{author_midname.first.capitalize}."
+    mid_name_initial = author_midname.present? ? "#{author_midname.first.capitalize}." : ''
+    "#{author_surname} #{author_name.first.capitalize}. #{mid_name_initial}".strip
   end
 
   def self.ransackable_associations(_auth_object = nil)
