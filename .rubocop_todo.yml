@@ -21,7 +21,7 @@ Metrics/AbcSize:
 # Configuration parameters: CountComments, CountAsOne, AllowedMethods, AllowedPatterns.
 # AllowedMethods: refine
 Metrics/BlockLength:
-  Max: 190
+  Max: 210
 
 # Offense count: 1
 # Configuration parameters: AllowedMethods, AllowedPatterns.
@@ -31,7 +31,7 @@ Metrics/CyclomaticComplexity:
 # Offense count: 4
 # Configuration parameters: CountComments, CountAsOne, AllowedMethods, AllowedPatterns.
 Metrics/MethodLength:
-  Max: 31
+  Max: 40
 
 # Offense count: 1
 # Configuration parameters: AllowedMethods, AllowedPatterns.
@@ -75,6 +75,10 @@ Style/StringLiterals:
 Rails/LexicallyScopedActionFilter:
   Exclude:
     - 'app/controllers/clients/registrations_controller.rb'
+
+Rails/CreateTableWithTimestamps:
+  Exclude:
+    - 'db/migrate/20240528161926_create_active_storage_tables.active_storage.rb'
 
 Rails/I18nLocaleTexts:
   Enabled: false

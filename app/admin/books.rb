@@ -5,7 +5,7 @@ ActiveAdmin.register Book do
   # Uncomment all parameters which should be permitted for assignment
   #
   permit_params :book_title, :publisher_id, :book_year_of_pub, :isbn, :book_amount, :book_age_rating, :book_rating,
-                :description, author_ids: [], genre_ids: []
+                :book_image, :description, author_ids: [], genre_ids: []
   #
   # or
   #
@@ -56,6 +56,7 @@ ActiveAdmin.register Book do
       f.input :isbn
       f.input :book_amount
       f.input :book_age_rating
+      f.input :book_image, as: :file
       f.input :description
     end
     f.actions

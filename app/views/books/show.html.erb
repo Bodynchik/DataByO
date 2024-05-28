@@ -1,6 +1,8 @@
 <section class="section-book">
   <div class="book-container">
-    <div class="book-image"></div>
+    <div class="book-image">
+      <%= image_tag(@book.book_image, class: 'book-image-main') if @book.book_image.attached? %>
+    </div>
     <div class="book-description">
       <div class="book-description__title">
         <h1 class="book__h1"><%= @book.book_title %></h1>

@@ -23,7 +23,9 @@
           <%= link_to book_path(book), class: 'books-list__link' do %>
             <div class="books-list-grid__item">
               <div class="grid-item__top">
-                <div class="books-list-grid__image"></div>
+                <div class="books-list-grid__image">
+                  <%= image_tag(book.book_image, class: 'image-grid') if book.book_image.attached? %>
+                </div>
                 <div class="books-list-grid__title"><%= book.book_title %></div>
                 <div class="books-list-grid__authors"><%= book.authors.map(&:full_name).join(', ') %></div>
               </div>
