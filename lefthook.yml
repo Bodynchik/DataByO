@@ -1,0 +1,7 @@
+pre-commit:
+  commands:
+    rubocop:
+      tags: backend style
+      glob: "*.{rb}"
+      exclude: "application.rb|routes.rb"
+      run: bundle exec rubocop --autocorrect-all {all_files}
