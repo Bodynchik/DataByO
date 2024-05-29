@@ -347,3 +347,44 @@
     justify-content: center;
     gap: 10px;
 }
+
+.book-comments__body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    color: var(--color-text-dark);
+    word-wrap: break-word;
+}
+
+.book-comments__item {
+    padding: 12px;
+    border-radius: var(--border-radius);
+    background-color: var(--color-bg-medium);
+}
+
+.book-comments__client {
+    margin-bottom: 6px;
+}
+
+.book-comments__date {
+    font-size: 14px;
+    margin-bottom: 12px;
+    color: var(--color-text-semi-dark);
+}
+
+.book-comments__text {
+    font-size: 14px;
+    margin-bottom: 6px;
+    overflow: hidden;
+    max-height: 51px;
+}
+
+.book-comments__btn {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--color-text-semi-dark);
+}
+
+.book-comments__btn:hover {
+    text-decoration: underline;
+}
