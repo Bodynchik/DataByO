@@ -26,6 +26,10 @@ en:
       card_max_borrow: "Maximum number of borrowings"
       card_current_reserve: "Reserved"
       card_current_borrow: "Borrowed"
+      create_card_title: "You don't have a library card yet. Let's fix it!"
+      create_card_max_reserve: "Select the maximum number of reservations (from 1 to 15)"
+      create_card_max_borrow: "Select the maximum number of borrowings (from 1 to 15)"
+      create_card_btn: "Create a card"
   shared:
     footer:
       contact_info: "Contact information:"

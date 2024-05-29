@@ -26,6 +26,10 @@ uk:
       card_max_borrow: "Максимальна кількість запозичень"
       card_current_reserve: "Зарезервовано"
       card_current_borrow: "Запозичено"
+      create_card_title: "Ви ще не маєте читацького квитка. Виправимо це!"
+      create_card_max_reserve: "Оберіть максимальну кількість резервацій (від 1 до 15)"
+      create_card_max_borrow: "Оберіть максимальну кількість запозичень (від 1 до 15)"
+      create_card_btn: "Створити квиток"
   shared:
     footer:
       contact_info: "Контактні дані:"
