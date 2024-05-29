@@ -30,6 +30,14 @@ en:
       create_card_max_reserve: "Select the maximum number of reservations (from 1 to 15)"
       create_card_max_borrow: "Select the maximum number of borrowings (from 1 to 15)"
       create_card_btn: "Create a card"
+      borrowed_book_id: "Borrowing"
+      write_review_btn: "Leave a review"
+      return_book_btn: "Return"
+      borrowed_book: "Book"
+      borrowed_date_took: "Date of borrowing"
+      borrowed_date_took_to: "Return due"
+      borrowed_date_return: "Date of return"
+      borrowed_status: "Borrowing status"
   shared:
     footer:
       contact_info: "Contact information:"
@@ -78,3 +86,4 @@ en:
       description: "Description"
       borrow: "Borrow"
       reviews_upper: "Review"
+      date_of_return: "Return due"
