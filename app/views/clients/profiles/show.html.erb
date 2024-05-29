@@ -118,22 +118,22 @@
 </section>
 
 <script>
-    document.addEventListener('turbo:load', function () {
-        function toggleBookBody() {
-            var body = $(this).closest('.single-borrowed-book').find('.single-borrowed-book-body');
+    function toggleBookBody() {
+        var body = $(this).closest('.single-borrowed-book').find('.single-borrowed-book-body');
 
-            if (body.is(':visible')) {
-                body.slideUp(function() {
-                    body.css('display', 'none');
-                });
-            } else {
-                body.css('display', 'flex').hide().slideDown();
-            }
+        if (body.is(':visible')) {
+            body.slideUp(function() {
+                body.css('display', 'none');
+            });
+        } else {
+            body.css('display', 'flex').hide().slideDown();
         }
+    }
 
-        $('.single-borrowed-book-header-title').on('click', toggleBookBody);
+    function initializeEventHandlers() {
+        $(document).on('click', '.single-borrowed-book-header-title', toggleBookBody);
 
-        $('.single-borrowed-book').on('click', '.return-book', function() {
+        $(document).on('click', '.single-borrowed-book .return-book', function() {
             var borrowedBookId = $(this).closest('.single-borrowed-book').data('borrowed-book-id');
 
             $.ajax({
@@ -176,32 +176,13 @@
                 }
             });
         });
+    }
+
+    document.addEventListener('turbo:frame-load', function () {
+        initializeEventHandlers();
     });
 
-    document.addEventListener('turbo:load', function () {
-        // Повторна ініціалізація функцій на завантаження DOM.
-        $('.single-borrowed-book-header-title').on('click', toggleBookBody);
-        $('.single-borrowed-book').on('click', '.return-book', function() {
-            var borrowedBookId = $(this).closest('.single-borrowed-book').data('borrowed-book-id');
-
-            $.ajax({
-                url: '/borrowed_books/' + borrowedBookId + '/return_book',
-                method: 'PATCH',
-                headers: {
-                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
-                    if (response.success) {
-                        alert('Книгу успішно повернено.');
-                        $('.single-borrowed-book[data-borrowed-book-id="' + borrowedBookId + '"] .return-book').hide();
-                    } else {
-                        alert('Не вдалося повернути книгу.');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    alert('Сталася помилка: ' + error);
-                }
-            });
-        });
+    document.addEventListener('DOMContentLoaded', function () {
+        initializeEventHandlers();
     });
 </script>

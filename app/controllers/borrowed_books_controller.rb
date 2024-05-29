@@ -5,20 +5,16 @@ class BorrowedBooksController < InheritedResources::Base
     library_card = current_client.library_card
 
     if library_card.can_borrow_more_books? && @borrowed_book.save
+      Rails.logger.debug @book.book_amount
+      Rails.logger.debug
       if @book.book_amount > 1
-        puts @book.book_amount
-        puts
         @book.update(book_amount: @book.book_amount - 1)
-        puts @book.book_amount
-        puts
       else
-        puts @book.book_amount
-        puts
         @book.update(book_amount: 0)
-        puts @book.book_amount
-        puts
 
       end
+      Rails.logger.debug @book.book_amount
+      Rails.logger.debug
       redirect_to book_path(@book), notice: 'Книгу успішно позичено'
     else
       flash.now[:alert] = 'Не вдалося позичити книгу. Можливо, ви досягли ліміту запозичень або книги вже немає в наявності.'
@@ -30,7 +26,7 @@ class BorrowedBooksController < InheritedResources::Base
     @borrowed_book = BorrowedBook.find(params[:id])
     @book = @borrowed_book.book
 
-    if @borrowed_book.update(status: 'Повернено', date_due: Time.now)
+    if @borrowed_book.update(status: 'Повернено', date_due: Time.zone.now)
       @book.update(book_amount: @book.book_amount + 1)
       render json: { success: true }
     else
