@@ -8,6 +8,14 @@ class LibraryCard < ApplicationRecord
   validates :max_borrow_allowed, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :max_reserve_allowed, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
+  def active_borrowed_books_count
+    borrowed_books.where(status: 'Активно').count
+  end
+
+  def can_borrow_more_books?
+    active_borrowed_books_count < max_borrow_allowed
+  end
+
   def self.ransackable_associations(_auth_object = nil)
     %w[book_reviews borrowed_books client reservations returns]
   end
