@@ -2,7 +2,7 @@
 
 <section class="category-n-profile">
   <div class="category-container">
-    <%= form_with url: clients_profile_path(current_client), method: :get, local: true, class: 'form-category-container' do %>
+    <%= form_with url: clients_profile_path, method: :get, local: true, class: 'form-category-container' do %>
       <%= button_tag t('clients.profiles.profile'), type: 'submit', name: 'tab', value: 'personal', class: 'single-category-btn' %>
       <%= button_tag t('clients.profiles.card'), type: 'submit', name: 'tab', value: 'card', class: 'single-category-btn' %>
       <%= button_tag t('clients.profiles.reserve'), type: 'submit', name: 'tab', value: 'reserve', class: 'single-category-btn' %>
@@ -39,7 +39,44 @@
         </div>
       <% end %>
     <% elsif @tab == 'card' %>
-
+      <% if @library_card.persisted? %>
+        <div class="library-card-info">
+          <div class="form-group">
+            <h2 class="card-group-title"><%= t('clients.profiles.card_create_date') %></h2>
+            <p class="card-group-info" id="card-group-info-id"><%= @library_card.created_at.strftime("%d-%m-%Y") %></p>
+          </div>
+          <div class="form-group">
+            <h2 class="card-group-title"><%= t('clients.profiles.card_max_reserve') %></h2>
+            <p class="card-group-info" id="card-group-info-id"><%= @library_card.max_reserve_allowed %></p>
+          </div>
+          <div class="form-group">
+            <h2 class="card-group-title"><%= t('clients.profiles.card_max_borrow') %></h2>
+            <p class="card-group-info" id="card-group-info-id"><%= @library_card.max_borrow_allowed %></p>
+          </div>
+          <div class="button-personal-container">
+            <h2>
+              <%= t('clients.profiles.card_current_reserve') %>: <%= @library_card.reservations.count %>/<%= @library_card.max_reserve_allowed %>.
+              <%= t('clients.profiles.card_current_borrow') %>: <%= @library_card.borrowed_books.count %>/<%= @library_card.max_borrow_allowed %>
+            </h2>
+          </div>
+        </div>
+      <% else %>
+        <%= form_with model: @library_card, url: library_cards_path, method: :post do |form| %>
+          <h1 class="create-card-title">Ви ще не маєте читацького квитка. Виправимо це!</h1>
+          <%= form.hidden_field :client_id, value: current_client.id %>
+          <div class="form-group">
+            <%= form.label :max_reserve_allowed, 'Оберіть максимальну кількість резервацій (від 1 до 15)' %>
+            <%= form.number_field :max_reserve_allowed, class: 'form-control', min: 1, max: 15 %>
+          </div>
+          <div class="form-group">
+            <%= form.label :max_borrow_allowed, 'Оберіть максимальну кількість запозичень (від 1 до 15)' %>
+            <%= form.number_field :max_borrow_allowed, class: 'form-control', min: 1, max: 15 %>
+          </div>
+          <div class="button-personal-container">
+            <%= form.submit 'Створити квиток', class: 'btn btn-primary', id: 'create-card' %>
+          </div>
+        <% end %>
+      <% end %>
     <% elsif @tab == 'reserve' %>
 
     <% elsif @tab == 'borrow' %>
@@ -74,7 +111,6 @@
                 alert('Дані не було оновлено');
                 // Або перезавантаження сторінки для показу змін
                 window.location.reload();
-                // Наприклад, ви можете відобразити повідомлення про помилку
             }
         });
     });

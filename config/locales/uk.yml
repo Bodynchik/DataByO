@@ -21,6 +21,11 @@ uk:
       borrow: "Запозичення"
       review: "Рев'ю"
       save: "Зберегти"
+      card_create_date: "Дата створення"
+      card_max_reserve: "Максимальна кількість резервацій"
+      card_max_borrow: "Максимальна кількість запозичень"
+      card_current_reserve: "Зарезервовано"
+      card_current_borrow: "Запозичено"
   shared:
     footer:
       contact_info: "Контактні дані:"
