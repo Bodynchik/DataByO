@@ -4,6 +4,7 @@
     display: flex;
     justify-content: center;
     gap: 48px;
+    min-height: calc(100vh - 71px - 159px - 78px);
 }
 
 .category-container {
@@ -43,7 +44,7 @@
 }
 
 .profile-container {
-    display: grid;
+    /*display: grid;*/
     align-items: center;
     justify-content: start;
     gap: 25px;
@@ -51,12 +52,13 @@
     background-color: var(--color-bg-medium);
     border-radius: 10px;
     width: 982px;
+    height: fit-content;
 }
 
-.profile-container form {
+.profile-container form, .library-card-info {
     display: grid;
     align-items: center;
-    justify-content: center;
+    /*justify-content: center;*/
     gap: 25px;
     align-content: center;
 }
@@ -67,12 +69,14 @@
     gap: 10px;
 }
 
-.form-group label {
+.form-group label,
+.card-group-title,
+.button-personal-container h2 {
     font-weight: 600;
     font-size: 20px;
 }
 
-.form-control {
+.form-control, .card-group-info {
     height: 41px;
     border: 1px solid;
     border-color: var(--color-text-dark);
@@ -84,6 +88,11 @@
     font-size: 20px;
     font-weight: 400;
     font-family: "Roboto Condensed", sans-serif;
+}
+
+#card-group-info-id {
+    background-color: white;
+    color: var(--color-text-dark);
 }
 
 .btn-primary {
@@ -102,7 +111,19 @@
     transition: all 0.2s linear;
 }
 
+#create-card {
+    width: 130px;
+}
+
 .button-personal-container {
     display: grid;
     justify-content: center;
+}
+
+.create-card-title {
+    text-align: center;
+    /*color: var(--color-bg-dark);*/
+    font-weight: 800;
+    font-size: 24px;
+    margin-bottom: 10px;
 }

@@ -21,6 +21,11 @@ en:
       borrow: "Borrowings"
       review: "Reviews"
       save: "Save"
+      card_create_date: "Date of creation"
+      card_max_reserve: "Maximum number of reservations"
+      card_max_borrow: "Maximum number of borrowings"
+      card_current_reserve: "Reserved"
+      card_current_borrow: "Borrowed"
   shared:
     footer:
       contact_info: "Contact information:"
