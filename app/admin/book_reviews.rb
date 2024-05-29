@@ -4,7 +4,7 @@ ActiveAdmin.register BookReview do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :book_id, :library_card_id, :review_text
+  permit_params :book_id, :library_card_id, :review_text, :rating_value
   #
   # or
   #
@@ -23,6 +23,7 @@ ActiveAdmin.register BookReview do
     column :library_card do |review|
       "#{review.library_card.client.surname} #{review.library_card.client.name} #{review.library_card.client.midname}"
     end
+    column :rating_value
     column :review_text
     column :created_at
     actions
@@ -32,6 +33,7 @@ ActiveAdmin.register BookReview do
                                                    ["#{library_card.client.surname} #{library_card.client.name} #{library_card.client.midname}", library_card.id]
                                                  }
   filter :book, as: :select, collection: Book.all.map { |book| ["#{book.book_title} (#{book.book_year_of_pub})", book.id] }
+  filter :rating_value
   filter :review_text
 
   form do |f|
@@ -40,6 +42,7 @@ ActiveAdmin.register BookReview do
                                                         ["#{library_card.client.surname} #{library_card.client.name} #{library_card.client.midname}", library_card.id]
                                                       }
       f.input :book, as: :select, collection: Book.all.map { |book| ["#{book.book_title} (#{book.book_year_of_pub})", book.id] }
+      f.input :rating_value
       f.input :review_text
     end
     f.actions

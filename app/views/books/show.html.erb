@@ -59,5 +59,41 @@
   </div>
   <div class="book-comments">
     <h2 class="book-comments__h2"><%= t('books.show.reviews_upper') %></h2>
+    <div class="book-comments__body">
+      <% @book.book_reviews.each do |book_review| %>
+        <div class="book-comments__item">
+          <p class="book-comments__client"><%= book_review.library_card.client.sur_name %></p>
+          <p class="book-comments__date"><%= book_review.created_at.strftime("%d.%m.%Y") %></p>
+          <div class="book-comments__text">
+            <%= book_review.review_text %>
+          </div>
+          <button class="button book-comments__btn" onclick="showFullText(this)">Читати повністю</button>
+        </div>
+      <% end %>
+    </div>
   </div>
 </section>
+
+<script>
+      window.showFullText = function(button) {
+          let textDiv = button.previousElementSibling;
+          if (textDiv.scrollHeight > 51) {
+              button.style.display = "block";
+              if (textDiv.style.overflow === "hidden") {
+                  textDiv.style.maxHeight = "none";
+                  textDiv.style.overflow = "auto";
+                  button.textContent = "Приховати";
+              } else {
+                  textDiv.style.overflow = "hidden";
+                  textDiv.style.maxHeight = "51px";
+                  button.textContent = "Читати повністю";
+              }
+          } else {
+              button.style.display = "none";
+          }
+      }
+
+      document.querySelectorAll('.book-comments__btn').forEach(button => {
+          showFullText(button);
+      });
+</script>
