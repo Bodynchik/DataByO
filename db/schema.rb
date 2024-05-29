@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 20_240_528_161_926) do
+ActiveRecord::Schema[7.1].define(version: 20_240_529_112_242) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -50,11 +50,13 @@ ActiveRecord::Schema[7.1].define(version: 20_240_528_161_926) do
     t.index ['key'], name: 'index_active_storage_blobs_on_key', unique: true
   end
 
+  # rubocop:disable Rails/CreateTableWithTimestamps
   create_table 'active_storage_variant_records', force: :cascade do |t|
     t.bigint 'blob_id', null: false
     t.string 'variation_digest', null: false
     t.index %w[blob_id variation_digest], name: 'index_active_storage_variant_records_uniqueness', unique: true
   end
+  # rubocop:enable Rails/CreateTableWithTimestamps
 
   create_table 'admin_users', force: :cascade do |t|
     t.string 'email', default: '', null: false
@@ -85,16 +87,6 @@ ActiveRecord::Schema[7.1].define(version: 20_240_528_161_926) do
     t.index ['book_id'], name: 'index_book_authors_on_book_id'
   end
 
-  create_table 'book_comments', force: :cascade do |t|
-    t.bigint 'book_id', null: false
-    t.bigint 'client_id', null: false
-    t.string 'comment_text'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['book_id'], name: 'index_book_comments_on_book_id'
-    t.index ['client_id'], name: 'index_book_comments_on_client_id'
-  end
-
   create_table 'book_genres', force: :cascade do |t|
     t.bigint 'genre_id', null: false
     t.bigint 'book_id', null: false
@@ -104,22 +96,13 @@ ActiveRecord::Schema[7.1].define(version: 20_240_528_161_926) do
     t.index ['genre_id'], name: 'index_book_genres_on_genre_id'
   end
 
-  create_table 'book_raitings', force: :cascade do |t|
-    t.bigint 'book_id', null: false
-    t.bigint 'client_id', null: false
-    t.float 'rating_value'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['book_id'], name: 'index_book_raitings_on_book_id'
-    t.index ['client_id'], name: 'index_book_raitings_on_client_id'
-  end
-
   create_table 'book_reviews', force: :cascade do |t|
     t.bigint 'book_id', null: false
     t.bigint 'library_card_id', null: false
     t.string 'review_text'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.integer 'rating_value'
     t.index ['book_id'], name: 'index_book_reviews_on_book_id'
     t.index ['library_card_id'], name: 'index_book_reviews_on_library_card_id'
   end
@@ -191,18 +174,6 @@ ActiveRecord::Schema[7.1].define(version: 20_240_528_161_926) do
     t.index ['publisher_name'], name: 'index_publishers_on_publisher_name', unique: true
   end
 
-  create_table 'reservations', force: :cascade do |t|
-    t.bigint 'book_id', null: false
-    t.bigint 'library_card_id', null: false
-    t.date 'date_of_reservation'
-    t.integer 'requested_days'
-    t.string 'status'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['book_id'], name: 'index_reservations_on_book_id'
-    t.index ['library_card_id'], name: 'index_reservations_on_library_card_id'
-  end
-
   create_table 'returns', force: :cascade do |t|
     t.bigint 'book_id', null: false
     t.bigint 'library_card_id', null: false
@@ -217,20 +188,14 @@ ActiveRecord::Schema[7.1].define(version: 20_240_528_161_926) do
   add_foreign_key 'active_storage_variant_records', 'active_storage_blobs', column: 'blob_id'
   add_foreign_key 'book_authors', 'authors'
   add_foreign_key 'book_authors', 'books'
-  add_foreign_key 'book_comments', 'books'
-  add_foreign_key 'book_comments', 'clients'
   add_foreign_key 'book_genres', 'books'
   add_foreign_key 'book_genres', 'genres'
-  add_foreign_key 'book_raitings', 'books'
-  add_foreign_key 'book_raitings', 'clients'
   add_foreign_key 'book_reviews', 'books'
   add_foreign_key 'book_reviews', 'library_cards'
   add_foreign_key 'books', 'publishers'
   add_foreign_key 'borrowed_books', 'books'
   add_foreign_key 'borrowed_books', 'library_cards'
   add_foreign_key 'library_cards', 'clients'
-  add_foreign_key 'reservations', 'books'
-  add_foreign_key 'reservations', 'library_cards'
   add_foreign_key 'returns', 'books'
   add_foreign_key 'returns', 'library_cards'
 end

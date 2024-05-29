@@ -7,11 +7,7 @@ class Book < ApplicationRecord
   has_many :book_genres, dependent: :destroy
   has_many :genres, through: :book_genres
 
-  has_many :book_comments, dependent: :destroy
-  has_many :book_raitings, dependent: :destroy
-
   has_many :book_reviews, dependent: :destroy
-  has_many :reservations, dependent: :destroy
   has_many :borrowed_books, dependent: :destroy
   has_many :returns, dependent: :destroy
 
