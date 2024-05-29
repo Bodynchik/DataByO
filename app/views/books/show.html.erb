@@ -47,7 +47,9 @@
         </div>
       </div>
       <div class="book-description__reserve">
-        <button class="button button-reserve"><%= t('books.show.borrow') %></button>
+        <% unless @has_active_borrow %>
+          <button class="button button-reserve" id="openBorrowModal"><%= t('books.show.borrow') %></button>
+        <% end %>
       </div>
       <div class="book-description__annotation">
         <%= t('books.show.description') %>
@@ -74,26 +76,75 @@
   </div>
 </section>
 
-<script>
-      window.showFullText = function(button) {
-          let textDiv = button.previousElementSibling;
-          if (textDiv.scrollHeight > 51) {
-              button.style.display = "block";
-              if (textDiv.style.overflow === "hidden") {
-                  textDiv.style.maxHeight = "none";
-                  textDiv.style.overflow = "auto";
-                  button.textContent = "Приховати";
-              } else {
-                  textDiv.style.overflow = "hidden";
-                  textDiv.style.maxHeight = "51px";
-                  button.textContent = "Читати повністю";
-              }
-          } else {
-              button.style.display = "none";
-          }
-      }
+<div id="borrowModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <%= form_with(model: BorrowedBook.new, url: borrowed_books_path, method: :post, local: true) do |form| %>
+      <%= form.hidden_field :book_id, value: @book.id %>
+      <%= form.hidden_field :library_card_id, value: current_client.library_card.id %>
+      <%= form.hidden_field :date_borrowed, value: Date.today %>
+      <div class="single-div-container">
+        <%= form.label :date_due, 'Дата повернення' %>
+        <%= form.date_field :date_due, min: Date.today, max: Date.today + 30.days, required: true %>
+      </div>
+      <%= form.hidden_field :status, value: 'Активно' %>
+      <div class="single-btn-container">
+        <%= form.submit t('books.show.borrow'), class: 'button button-reserve' %>
+      </div>
+    <% end %>
+  </div>
+</div>
 
-      document.querySelectorAll('.book-comments__btn').forEach(button => {
-          showFullText(button);
-      });
+<script>
+    window.showFullText = function(button) {
+        let textDiv = button.previousElementSibling;
+        if (textDiv.scrollHeight > 51) {
+            button.style.display = "block";
+            if (textDiv.style.overflow === "hidden") {
+                textDiv.style.maxHeight = "none";
+                textDiv.style.overflow = "auto";
+                button.textContent = "Приховати";
+            } else {
+                textDiv.style.overflow = "hidden";
+                textDiv.style.maxHeight = "51px";
+                button.textContent = "Читати повністю";
+            }
+        } else {
+            button.style.display = "none";
+        }
+    }
+
+    document.querySelectorAll('.book-comments__btn').forEach(button => {
+        showFullText(button);
+    });
+
+    document.addEventListener('turbo:load', function () {
+        var modal = document.getElementById('borrowModal');
+        var btn = document.getElementById('openBorrowModal');
+        var span = document.getElementsByClassName('close')[0];
+        var maxBorrowAllowed = <%= current_client.library_card.max_borrow_allowed %>;
+        var activeBorrowedBooksCount = <%= current_client.library_card.active_borrowed_books_count %>;
+
+        if (btn) {
+            btn.onclick = function() {
+                if (activeBorrowedBooksCount >= maxBorrowAllowed) {
+                    alert('Ви досягли ліміту запозичень.');
+                } else {
+                    modal.style.display = 'block';
+                }
+            }
+        }
+
+        if (span) {
+            span.onclick = function() {
+                modal.style.display = 'none';
+            }
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    });
 </script>

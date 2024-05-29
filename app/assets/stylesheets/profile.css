@@ -44,7 +44,7 @@
 }
 
 .profile-container {
-    /*display: grid;*/
+    display: grid;
     align-items: center;
     justify-content: start;
     gap: 25px;
@@ -126,4 +126,66 @@
     font-weight: 800;
     font-size: 24px;
     margin-bottom: 10px;
+}
+
+.single-borrowed-book {
+    padding: 15px;
+    width: 932px;
+    border-radius: 10px;
+    background-color: var(--color-bg-dark);
+    display: grid;
+    gap: 15px;
+}
+
+.single-borrowed-book-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.single-borrowed-book-header-title {
+    color: var(--color-bg-light);
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.single-borrowed-book-header-btn-container {
+    display: flex;
+    gap: 10px;
+}
+
+.write-review, .return-book {
+    background-color: var(--color-bg-light);
+    padding: 6px;
+    border-radius: 10px;
+    color: var(--color-text-dark);
+    font-size: 16px;
+    font-family: "Roboto Condensed", sans-serif;
+    cursor: pointer;
+    border: none;
+    transition: 0.2s linear;
+}
+
+.write-review:hover, .return-book:hover {
+    background-color: var(--color-bg-medium);
+}
+
+.single-borrowed-book-body {
+    display: flex;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: var(--color-bg-light);
+    gap: 60px;
+}
+
+.single-borrowed-book-labels,
+.single-borrowed-book-infos {
+    display: grid;
+    gap: 15px;
+}
+
+.single-borrowed-book-label,
+.single-borrowed-book-info {
+    font-size: 20px;
+    font-weight: 400;
 }

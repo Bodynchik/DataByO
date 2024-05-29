@@ -3,9 +3,13 @@ class Clients::ProfilesController < ApplicationController
 
   def show
     @tab = params[:tab] || 'personal'
-    return unless @tab == 'card'
 
-    @library_card = current_client.library_card || LibraryCard.new
+    case @tab
+    when 'card'
+      @library_card = current_client.library_card || LibraryCard.new
+    when 'borrow'
+      @borrowed_books = current_client.library_card.borrowed_books.includes(:book)
+    end
   end
 
   def edit
