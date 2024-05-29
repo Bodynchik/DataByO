@@ -10,7 +10,7 @@ class BooksController < ApplicationController
   # GET /books/1 or /books/1.json
   def show
     @book = Book.find(params[:id])
-    @has_active_borrow = current_client.library_card.borrowed_books.where(book_id: @book.id, status: 'Активно').exists?
+    @has_active_borrow = current_client.library_card.borrowed_books.exists?(book_id: @book.id, status: 'Активно')
   end
 
   # GET /books/new

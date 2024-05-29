@@ -73,7 +73,9 @@
           <div class="single-borrowed-book-header">
             <h2 class="single-borrowed-book-header-title">Запозичення №<%= borrowed_book.id %></h2>
             <div class="single-borrowed-book-header-btn-container">
-              <button class="write-review">Лишити рецензію про книгу</button>
+              <% if borrowed_book.status == 'Активно' %>
+                <button class="write-review">Лишити рецензію про книгу</button>
+              <% end %>
               <% if borrowed_book.status != 'Повернено' %>
                 <button class="return-book">Повернути</button>
               <% end %>
@@ -141,7 +143,6 @@
                       },
                       success: function(response) {
                           if (response.success) {
-                              alert('Книгу успішно повернено.');
                               // Оновлюємо відповідний елемент без перезавантаження сторінки
                               $('.single-borrowed-book[data-borrowed-book-id="' + borrowedBookId + '"]').remove();
                           } else {
@@ -190,3 +191,45 @@
         });
     });
 </script>
+
+<div id="reviewModalTwo" class="modal">
+  <div class="modal-two-content">
+    <span class="close">&times;</span>
+    <%= render "form", book_review: @book_review %>
+  </div>
+  <script>
+      document.addEventListener('turbo:load', function() {
+        var modal = document.getElementById("reviewModalTwo");
+        var spans = document.querySelectorAll(".close");
+        var btns = document.querySelectorAll(".write-review");
+
+        btns.forEach(function(btn) {
+            btn.onclick = function() {
+                var bookId = this.parentElement.parentElement.parentElement.getAttribute('data-borrowed-book-id');
+                console.log(bookId);
+
+                var form_book_review = modal.querySelector('.form-book-review');
+                var bookIdField = form_book_review.querySelector('input[name="book_review[book_id]"]');
+                bookIdField.value = bookId;
+
+                modal.style.display = "block";
+            }
+        });
+
+        spans.forEach(function(span) {
+            span.onclick = function() {
+                modal.style.display = "none";
+
+                var selectedRatingButton = document.querySelector('.rating-buttons .rating-button.selected');
+                if (selectedRatingButton) {
+                    selectedRatingButton.classList.remove('selected');
+                }
+                var reviewTextField = document.querySelector('.review-text');
+                if (reviewTextField) {
+                    reviewTextField.value = '';
+                }
+            }
+        });
+      });
+  </script>
+</div>
