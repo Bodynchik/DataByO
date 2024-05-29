@@ -5,7 +5,6 @@
     <%= form_with url: clients_profile_path, method: :get, local: true, class: 'form-category-container' do %>
       <%= button_tag t('clients.profiles.profile'), type: 'submit', name: 'tab', value: 'personal', class: 'single-category-btn' %>
       <%= button_tag t('clients.profiles.card'), type: 'submit', name: 'tab', value: 'card', class: 'single-category-btn' %>
-      <%= button_tag t('clients.profiles.reserve'), type: 'submit', name: 'tab', value: 'reserve', class: 'single-category-btn' %>
       <%= button_tag t('clients.profiles.borrow'), type: 'submit', name: 'tab', value: 'borrow', class: 'single-category-btn' %>
       <%= button_tag t('clients.profiles.review'), type: 'submit', name: 'tab', value: 'review', class: 'single-category-btn' %>
     <% end %>
@@ -77,8 +76,6 @@
           </div>
         <% end %>
       <% end %>
-    <% elsif @tab == 'reserve' %>
-
     <% elsif @tab == 'borrow' %>
 
     <% elsif @tab == 'review' %>

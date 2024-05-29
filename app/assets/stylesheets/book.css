@@ -51,6 +51,7 @@
     list-style: none;
     padding: 0;
     margin: 0;
+    justify-content: center;
 }
 
 .books-sort__link {
@@ -257,6 +258,7 @@
 
 .button-reserve:hover {
     background-color: var(--color-bg-dark);
+    color: var(--color-bg-light);
 }
 
 .book-description__annotation {
