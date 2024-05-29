@@ -76,11 +76,9 @@
               №<%= borrowed_book.id %></h2>
             <div class="single-borrowed-book-header-btn-container">
 
-              <% if borrowed_book.status == 'Активно' %>
-                <button class="write-review">Лишити рецензію про книгу</button>
+              <% if borrowed_book.status != 'Повернено' %>
+                <button class="write-review"><%= t('clients.profiles.write_review_btn') %></button>
               <% end %>
-
-              <button class="write-review"><%= t('clients.profiles.write_review_btn') %></button>
 
               <% if borrowed_book.status != 'Повернено' %>
                 <button class="return-book"><%= t('clients.profiles.return_book_btn') %></button>
