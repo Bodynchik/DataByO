@@ -50,7 +50,8 @@
           </div>
           <div class="button-personal-container">
             <h2>
-              <%= t('clients.profiles.card_current_borrow') %>: <%= @library_card.active_borrowed_books_count %>/<%= @library_card.max_borrow_allowed %>
+              <%= t('clients.profiles.card_current_borrow') %>: <%= @library_card.active_borrowed_books_count %>
+              /<%= @library_card.max_borrow_allowed %>
             </h2>
           </div>
         </div>
@@ -71,9 +72,16 @@
       <% @borrowed_books.each do |borrowed_book| %>
         <div class="single-borrowed-book" data-borrowed-book-id="<%= borrowed_book.id %>">
           <div class="single-borrowed-book-header">
-            <h2 class="single-borrowed-book-header-title"><%= t('clients.profiles.borrowed_book_id') %> №<%= borrowed_book.id %></h2>
+            <h2 class="single-borrowed-book-header-title"><%= t('clients.profiles.borrowed_book_id') %>
+              №<%= borrowed_book.id %></h2>
             <div class="single-borrowed-book-header-btn-container">
+
+              <% if borrowed_book.status == 'Активно' %>
+                <button class="write-review">Лишити рецензію про книгу</button>
+              <% end %>
+
               <button class="write-review"><%= t('clients.profiles.write_review_btn') %></button>
+
               <% if borrowed_book.status != 'Повернено' %>
                 <button class="return-book"><%= t('clients.profiles.return_book_btn') %></button>
               <% end %>
@@ -94,7 +102,8 @@
 
             <div class="single-borrowed-book-infos">
               <p class="single-borrowed-book-info">
-                <%= borrowed_book.book.authors.map(&:full_name).join(', ') %>, "<%= borrowed_book.book.book_title %>"<br>
+                <%= borrowed_book.book.authors.map(&:full_name).join(', ') %>, "<%= borrowed_book.book.book_title %>
+                "<br>
                 <%= borrowed_book.book.book_year_of_pub %>, <%= borrowed_book.book.publisher.publisher_name %>⠀
               </p>
               <p class="single-borrowed-book-info"><%= borrowed_book.date_borrowed.strftime("%d-%m-%Y") %></p>
@@ -111,6 +120,50 @@
           }
       </style>
 
+      <script>
+          document.addEventListener('turbo:load', function () {
+              // Оголошуємо функцію, яка буде викликатися при кліку на заголовок
+              function toggleBookBody() {
+                  var body = $(this).closest('.single-borrowed-book').find('.single-borrowed-book-body');
+
+                  if (body.is(':visible')) {
+                      body.slideUp(function () {
+                          body.css('display', 'none'); // Повернення до none після анімації
+                      });
+                  } else {
+                      body.css('display', 'flex').hide().slideDown();
+                  }
+              }
+
+              // Додаємо обробник подій до заголовків
+              $('.single-borrowed-book-header-title').on('click', toggleBookBody);
+
+              // Додаємо обробник подій для кнопки "Повернути"
+              $('.single-borrowed-book').on('click', '.return-book', function () {
+                  var borrowedBookId = $(this).closest('.single-borrowed-book').data('borrowed-book-id');
+
+                  $.ajax({
+                      url: '/borrowed_books/' + borrowedBookId + '/return_book',
+                      method: 'PATCH',
+                      headers: {
+                          'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                      },
+                      success: function (response) {
+                          if (response.success) {
+                              // Оновлюємо відповідний елемент без перезавантаження сторінки
+                              $('.single-borrowed-book[data-borrowed-book-id="' + borrowedBookId + '"]').remove();
+                          } else {
+                              alert('Не вдалося повернути книгу.');
+                          }
+                      },
+                      error: function (xhr, status, error) {
+                          alert('Сталася помилка: ' + error);
+                      }
+                  });
+              });
+          });
+      </script>
+
     <% elsif @tab == 'review' %>
 
     <% end %>
@@ -122,7 +175,7 @@
         var body = $(this).closest('.single-borrowed-book').find('.single-borrowed-book-body');
 
         if (body.is(':visible')) {
-            body.slideUp(function() {
+            body.slideUp(function () {
                 body.css('display', 'none');
             });
         } else {
@@ -133,7 +186,7 @@
     function initializeEventHandlers() {
         $(document).on('click', '.single-borrowed-book-header-title', toggleBookBody);
 
-        $(document).on('click', '.single-borrowed-book .return-book', function() {
+        $(document).on('click', '.single-borrowed-book .return-book', function () {
             var borrowedBookId = $(this).closest('.single-borrowed-book').data('borrowed-book-id');
 
             $.ajax({
@@ -142,13 +195,13 @@
                 headers: {
                     'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
                 },
-                success: function(response) {
+                success: function (response) {
                     if (response.success) {
                         $('.single-borrowed-book[data-borrowed-book-id="' + borrowedBookId + '"] .return-book').hide();
                     } else {
                     }
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     alert('Сталася помилка: ' + error);
                 }
             });
@@ -186,3 +239,45 @@
         initializeEventHandlers();
     });
 </script>
+
+<div id="reviewModalTwo" class="modal">
+  <div class="modal-two-content">
+    <span class="close">&times;</span>
+    <%= render "form", book_review: @book_review %>
+  </div>
+  <script>
+      document.addEventListener('turbo:load', function () {
+          var modal = document.getElementById("reviewModalTwo");
+          var spans = document.querySelectorAll(".close");
+          var btns = document.querySelectorAll(".write-review");
+
+          btns.forEach(function (btn) {
+              btn.onclick = function () {
+                  var bookId = this.parentElement.parentElement.parentElement.getAttribute('data-borrowed-book-id');
+                  console.log(bookId);
+
+                  var form_book_review = modal.querySelector('.form-book-review');
+                  var bookIdField = form_book_review.querySelector('input[name="book_review[book_id]"]');
+                  bookIdField.value = bookId;
+
+                  modal.style.display = "block";
+              }
+          });
+
+          spans.forEach(function (span) {
+              span.onclick = function () {
+                  modal.style.display = "none";
+
+                  var selectedRatingButton = document.querySelector('.rating-buttons .rating-button.selected');
+                  if (selectedRatingButton) {
+                      selectedRatingButton.classList.remove('selected');
+                  }
+                  var reviewTextField = document.querySelector('.review-text');
+                  if (reviewTextField) {
+                      reviewTextField.value = '';
+                  }
+              }
+          });
+      });
+  </script>
+</div>

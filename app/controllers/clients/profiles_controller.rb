@@ -2,8 +2,10 @@ class Clients::ProfilesController < ApplicationController
   before_action :authenticate_client!
 
   def show
+    @book_review = BookReview.new
     @tab = params[:tab] || 'personal'
 
+    @book_review.library_card_id = current_client.library_card.id
     case @tab
     when 'card'
       @library_card = current_client.library_card || LibraryCard.new

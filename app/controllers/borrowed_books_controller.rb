@@ -4,6 +4,10 @@ class BorrowedBooksController < InheritedResources::Base
     @book = @borrowed_book.book
     library_card = current_client.library_card
 
+    return unless library_card.can_borrow_more_books? && @book.book_amount.positive? && @borrowed_book.save
+
+    @book.update(book_amount: @book.book_amount - 1)
+
     if library_card.can_borrow_more_books? && @borrowed_book.save
       Rails.logger.debug @book.book_amount
       Rails.logger.debug

@@ -12,6 +12,8 @@
  *= require profile.css
  *
  *= require book.css
+ *
+ *= require review.css
  */
 
 :root {

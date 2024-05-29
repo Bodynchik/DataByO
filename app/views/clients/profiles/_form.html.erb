@@ -1,0 +1,59 @@
+<%= form_with(model: book_review, class: 'form-book-review') do |form| %>
+  <% if book_review.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(book_review.errors.count, "error") %> prohibited this book_review from being saved:</h2>
+
+      <ul>
+        <% book_review.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form.hidden_field :book_id %>
+  <%= form.hidden_field :library_card_id, value: @book_review.library_card_id %>
+
+    <div class="comm-field">
+      <div class="rating-buttons">
+        <% (1..5).each do |i| %>
+          <%= form.button type: "button", class: "rating-button#{'selected' if i == book_review.rating_value}",
+                          data: { rating: i }, onclick: "setRating(#{i})" do %>
+            <%= i %>  &#9733;
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+  <div class="review-text-container">
+    <%= form.text_area :review_text, placeholder: 'Напиши рецензію...', class: 'review-text' %>
+  </div>
+
+  <%= form.hidden_field :rating_value, id: "rating-input" %>
+
+  <div class="button-review-container">
+    <%= form.submit 'Лишити рецензію', class: 'button button-review' %>
+  </div>
+<% end %>
+
+<script>
+    function setRating(rating) {
+        // для схованого поля устанавлюю обраний рейтинг
+        document.getElementById("rating-input").value = rating;
+
+        // всі кнопки рейтингу
+        var buttons = document.querySelectorAll('.rating-button');
+        buttons.forEach(function(button) {
+            var buttonRating = button.getAttribute('data-rating');
+
+            // Перевірити, чи співпадає рейтинг кнопки з обраним рейтингом
+            if (buttonRating == rating) {
+                // Додати клас 'selected' для вибраної кнопки
+                button.classList.add('selected');
+            } else {
+                // Видалити клас 'selected' для всіх інших кнопок
+                button.classList.remove('selected');
+            }
+        });
+    }
+</script>
