@@ -4,12 +4,25 @@ class BorrowedBooksController < InheritedResources::Base
     @book = @borrowed_book.book
     library_card = current_client.library_card
 
-    if library_card.can_borrow_more_books? && @book.book_amount > 0 && @borrowed_book.save
-      @book.update(book_amount: @book.book_amount - 1)
+    if library_card.can_borrow_more_books? && @borrowed_book.save
+      if @book.book_amount > 1
+        puts @book.book_amount
+        puts
+        @book.update(book_amount: @book.book_amount - 1)
+        puts @book.book_amount
+        puts
+      else
+        puts @book.book_amount
+        puts
+        @book.update(book_amount: 0)
+        puts @book.book_amount
+        puts
+
+      end
       redirect_to book_path(@book), notice: 'Книгу успішно позичено'
     else
       flash.now[:alert] = 'Не вдалося позичити книгу. Можливо, ви досягли ліміту запозичень або книги вже немає в наявності.'
-      render :new
+      redirect_to book_path(@book)
     end
   end
 

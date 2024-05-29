@@ -30,6 +30,14 @@ uk:
       create_card_max_reserve: "Оберіть максимальну кількість резервацій (від 1 до 15)"
       create_card_max_borrow: "Оберіть максимальну кількість запозичень (від 1 до 15)"
       create_card_btn: "Створити квиток"
+      borrowed_book_id: "Запозичення"
+      write_review_btn: "Лишити рецензію про книгу"
+      return_book_btn: "Повернути"
+      borrowed_book: "Книга"
+      borrowed_date_took: "Дата запозичення"
+      borrowed_date_took_to: "Повернути до"
+      borrowed_date_return: "Дата повернення"
+      borrowed_status: "Статус запозичення"
   shared:
     footer:
       contact_info: "Контактні дані:"
@@ -78,3 +86,4 @@ uk:
       description: "Опис"
       borrow: "Запозичити"
       reviews_upper: "Рецензії"
+      date_of_return: "Дата повернення"

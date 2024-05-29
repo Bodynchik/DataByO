@@ -16,7 +16,7 @@ class Book < ApplicationRecord
   validates :book_title, presence: true
   validates :isbn, presence: true, uniqueness: true
   validates :book_year_of_pub, presence: true, numericality: { greater_than_or_equal_to: 1900 }
-  validates :book_amount, presence: true, numericality: { greater_than: 0 }
+  validates :book_amount, presence: true, numericality: { greater_than: -1 }
   validates :book_age_rating, presence: true
   validates :book_rating, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
   validates :authors, presence: { message: 'select, please' }

@@ -47,8 +47,12 @@
         </div>
       </div>
       <div class="book-description__reserve">
-        <% unless @has_active_borrow %>
-          <button class="button button-reserve" id="openBorrowModal"><%= t('books.show.borrow') %></button>
+        <% if @book.book_amount == 0 %>
+          <p>Наразі нема книг в наявності</p>
+        <% else %>
+          <% unless @has_active_borrow %>
+            <button class="button button-reserve" id="openBorrowModal"><%= t('books.show.borrow') %></button>
+          <% end %>
         <% end %>
       </div>
       <div class="book-description__annotation">
@@ -84,7 +88,7 @@
       <%= form.hidden_field :library_card_id, value: current_client.library_card.id %>
       <%= form.hidden_field :date_borrowed, value: Date.today %>
       <div class="single-div-container">
-        <%= form.label :date_due, 'Дата повернення' %>
+        <%= form.label :date_due, t('books.show.date_of_return') %>
         <%= form.date_field :date_due, min: Date.today, max: Date.today + 30.days, required: true %>
       </div>
       <%= form.hidden_field :status, value: 'Активно' %>
