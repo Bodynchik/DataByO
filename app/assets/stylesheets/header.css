@@ -14,6 +14,11 @@
     font-size: 36px;
     font-weight: 700;
     color: var(--color-text-dark);
+    transition: 0.2s linear;
+}
+
+.header__logo:hover {
+    color: var(--color-bg-dark);
 }
 
 .header__navwrapper {

@@ -8,18 +8,18 @@
         <h1 class="book__h1"><%= @book.book_title %></h1>
         <p class="book__authors"><%= @book.authors.map(&:full_name).join(', ') %></p>
         <div class="book__ratings">
-          <div class="book__ratings-image">Рейтинг: <%= @book.book_rating || 0 %>/5 <%= image_tag 'book/star', alt: 'star', class: 'star-image' %></div>
-          <div>(відгуків: , рецензій:)</div>
+          <div class="book__ratings-image"><%= t('books.show.rating') %>: <%= @book.book_rating || 0 %>/5 <%= image_tag 'book/star', alt: 'star', class: 'star-image' %></div>
+          <div>(<%= t('books.show.reviews') %>: )</div>
         </div>
       </div>
       <div class="book-description__genre">
         <div class="book-description__genre-top">
           <div class="description-list-container">
-            <span class="description-title">Видавництво</span>
+            <span class="description-title"><%= t('books.show.publisher') %></span>
             <span class="book-description-text"><%= @book.publisher.publisher_name %></span>
           </div>
           <div class="description-list-container">
-            <span class="description-title">Рік видання</span>
+            <span class="description-title"><%= t('books.show.publish_year') %></span>
             <span class="book-description-text"><%= @book.book_year_of_pub %> рік</span>
           </div>
           <div class="description-list-container">
@@ -27,17 +27,17 @@
             <span class="book-description-text"><%= @book.isbn %></span>
           </div>
           <div class="description-list-container">
-            <span class="description-title">Вік</span>
+            <span class="description-title"><%= t('books.show.age') %></span>
             <span class="book-description-text"><%= @book.book_age_rating %></span>
           </div>
           <div class="description-list-container">
-            <span class="description-title">Наявність</span>
+            <span class="description-title"><%= t('books.show.avail') %></span>
             <span class="book-description-text"><%= @book.book_amount %></span>
           </div>
         </div>
         <div class="description-list-container">
           <div>
-            <span class="description-title">Жанри</span>
+            <span class="description-title"><%= t('books.show.genres') %></span>
           </div>
           <div class="list-genre">
             <% @book.genres.each do |genre| %>
@@ -47,11 +47,10 @@
         </div>
       </div>
       <div class="book-description__reserve">
-        <button class="button button-reserve">Зарезервувати</button>
-        <button class="button button-reserve">Запозичити</button>
+        <button class="button button-reserve"><%= t('books.show.borrow') %></button>
       </div>
       <div class="book-description__annotation">
-        Опис
+        <%= t('books.show.description') %>
         <div class="book-annotation-text">
           <%= @book.description %>
         </div>
@@ -59,10 +58,6 @@
     </div>
   </div>
   <div class="book-comments">
-    <h2 class="book-comments__h2">Відгуки та рецензії</h2>
-    <div class="book-comments__buttons">
-      <button class="button button-comment">Залишити відгук</button>
-      <button class="button button-comment">Написати рецензію</button>
-    </div>
+    <h2 class="book-comments__h2"><%= t('books.show.reviews_upper') %></h2>
   </div>
 </section>
