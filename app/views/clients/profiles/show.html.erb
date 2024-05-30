@@ -42,7 +42,7 @@
         <div class="library-card-info">
           <div class="form-group">
             <h2 class="card-group-title"><%= t('clients.profiles.card_create_date') %></h2>
-            <p class="card-group-info" id="card-group-info-id"><%= @library_card.created_at.strftime("%d-%m-%Y") %></p>
+            <p class="card-group-info" id="card-group-info-id"><%= @library_card.created_at.strftime("%d.%m.%Y") %></p>
           </div>
           <div class="form-group">
             <h2 class="card-group-title"><%= t('clients.profiles.card_max_borrow') %></h2>
@@ -100,12 +100,12 @@
 
             <div class="single-borrowed-book-infos">
               <p class="single-borrowed-book-info">
-                <%= borrowed_book.book.authors.map(&:full_name).join(', ') %>, "<%= borrowed_book.book.book_title %>
-                "<br>
+                <%= borrowed_book.book.authors.map(&:full_name).join(', ') %>, "<%= borrowed_book.book.book_title %>"
+                <br>
                 <%= borrowed_book.book.book_year_of_pub %>, <%= borrowed_book.book.publisher.publisher_name %>⠀
               </p>
-              <p class="single-borrowed-book-info"><%= borrowed_book.date_borrowed.strftime("%d-%m-%Y") %></p>
-              <p class="single-borrowed-book-info"><%= borrowed_book.date_due.strftime("%d-%m-%Y") %></p>
+              <p class="single-borrowed-book-info"><%= borrowed_book.date_borrowed.strftime("%d.%m.%Y") %></p>
+              <p class="single-borrowed-book-info"><%= borrowed_book.date_due.strftime("%d.%m.%Y") %></p>
               <p class="single-borrowed-book-info"><%= borrowed_book.status %></p>
             </div>
           </div>
@@ -117,7 +117,6 @@
               display: none;
           }
       </style>
-
 
       <script>
           document.addEventListener('turbo:load', function () {
@@ -160,6 +159,90 @@
       </script>
 
     <% elsif @tab == 'review' %>
+      <% if @reviews.any? %>
+        <% @reviews.each do |review| %>
+          <div class="single-review">
+            <div class="single-review-header">
+              <h2 class="single-review-header-title">Рев'ю №<%= review.id %></h2>
+              <div class="single-review-header-btn-container">
+                <%= button_to "Видалити", book_review_path(review), method: :delete, class: 'btn btn-danger delete-review' %>
+              </div>
+            </div>
+
+            <div class="single-review-body">
+              <div class="single-review-simple-data">
+                <div class="single-review-simple-data-labels">
+                  <p class="single-review-simple-data-label">Книга<br>⠀</p>
+                  <p class="single-review-simple-data-label">Дата написання</p>
+                  <p class="single-review-simple-data-label">Оцінка</p>
+                </div>
+                <div class="single-review-simple-data-infos">
+                  <p class="single-review-simple-data-info">
+                    <%= review.book.authors.map(&:full_name).join(', ') %>, "<%= review.book.book_title %>"
+                    <br>
+                    <%= review.book.book_year_of_pub %>, <%= review.book.publisher.publisher_name %>
+                  </p>
+                  <p class="single-review-simple-data-info"><%= review.created_at.strftime("%d.%m.%Y") %></p>
+                  <p class="single-review-simple-data-info"><%= review.rating_value %>/5</p>
+                </div>
+              </div>
+              <div class="single-review-text">
+                <p class="single-review-text-field"><%= review.review_text %></p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="you-did-not-have">
+          <h2 id="you-did-not-have-title-id">Ви ще не писали рев'ю!</h2>
+        </div>
+      <% end %>
+
+      <style>
+          .single-review-body {
+              display: none;
+          }
+      </style>
+
+      <script>
+          document.addEventListener('turbo:load', function () {
+              function toggleBookBody() {
+                  var body = $(this).closest('.single-review').find('.single-review-body');
+                  if (body.is(':visible')) {
+                      body.slideUp(function () {
+                          body.css('display', 'none');
+                      });
+                  } else {
+                      body.css('display', 'grid').hide().slideDown();
+                  }
+              }
+
+              function initializeEventHandlers() {
+                  $('.single-review-header-title').off('click').on('click', toggleBookBody);
+              }
+
+              initializeEventHandlers();
+          });
+
+          document.addEventListener('DOMContentLoaded', function () {
+              function toggleBookBody() {
+                  var body = $(this).closest('.single-review').find('.single-review-body');
+                  if (body.is(':visible')) {
+                      body.slideUp(function () {
+                          body.css('display', 'none');
+                      });
+                  } else {
+                      body.css('display', 'grid').hide().slideDown();
+                  }
+              }
+
+              function initializeEventHandlers() {
+                  $('.single-review-header-title').off('click').on('click', toggleBookBody);
+              }
+
+              initializeEventHandlers();
+          });
+      </script>
 
     <% end %>
   </div>

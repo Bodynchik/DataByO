@@ -120,7 +120,8 @@
     justify-content: center;
 }
 
-.create-card-title {
+.create-card-title,
+.you-did-not-have h2 {
     text-align: center;
     /*color: var(--color-bg-dark);*/
     font-weight: 800;
@@ -128,7 +129,8 @@
     margin-bottom: 10px;
 }
 
-.single-borrowed-book {
+.single-borrowed-book,
+.single-review {
     padding: 15px;
     width: 932px;
     border-radius: 10px;
@@ -137,24 +139,27 @@
     gap: 15px;
 }
 
-.single-borrowed-book-header {
+.single-borrowed-book-header,
+.single-review-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.single-borrowed-book-header-title {
+.single-borrowed-book-header-title,
+.single-review-header-title {
     color: var(--color-bg-light);
     font-size: 20px;
     cursor: pointer;
 }
 
-.single-borrowed-book-header-btn-container {
+.single-borrowed-book-header-btn-container,
+.single-review-header-btn-container {
     display: flex;
     gap: 10px;
 }
 
-.write-review, .return-book {
+.write-review, .return-book, .delete-review {
     background-color: var(--color-bg-light);
     padding: 6px;
     border-radius: 10px;
@@ -166,7 +171,7 @@
     transition: 0.2s linear;
 }
 
-.write-review:hover, .return-book:hover {
+.write-review:hover, .return-book:hover, .delete-review:hover {
     background-color: var(--color-bg-medium);
 }
 
@@ -179,13 +184,47 @@
 }
 
 .single-borrowed-book-labels,
-.single-borrowed-book-infos {
+.single-borrowed-book-infos,
+.single-review-simple-data-labels,
+.single-review-simple-data-infos {
     display: grid;
     gap: 15px;
 }
 
 .single-borrowed-book-label,
-.single-borrowed-book-info {
+.single-borrowed-book-info,
+.single-review-simple-data-label,
+.single-review-simple-data-info {
     font-size: 20px;
     font-weight: 400;
+}
+
+.single-review-body {
+    display: grid;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: var(--color-bg-light);
+    gap: 15px;
+}
+
+.single-review-simple-data {
+    display: flex;
+    gap: 60px;
+}
+
+.single-review-text {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid;
+    border-color: var(--color-text-dark);
+    background-color: white;
+    align-items: flex-start;
+}
+
+.you-did-not-have {
+    width: 932px;
+}
+
+#you-did-not-have-title-id {
+    margin-bottom: 0;
 }
