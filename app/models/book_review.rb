@@ -2,6 +2,7 @@ class BookReview < ApplicationRecord
   belongs_to :book
   belongs_to :library_card
 
+  validates :book_id, uniqueness: { scope: :library_card_id, message: 'You have already left a review for this book' }
   validates :rating_value, numericality: { greater_than: 0, less_than: 6 }
 
   def self.ransackable_attributes(_auth_object = nil)

@@ -11,6 +11,7 @@ class Clients::ProfilesController < ApplicationController
       @library_card = current_client.library_card || LibraryCard.new
     when 'borrow'
       @borrowed_books = current_client.library_card.borrowed_books.includes(:book)
+      @user_reviews = BookReview.where(library_card_id: current_client.library_card.id).pluck(:book_id)
     end
   end
 
