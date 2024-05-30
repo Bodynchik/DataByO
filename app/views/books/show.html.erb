@@ -47,11 +47,13 @@
         </div>
       </div>
       <div class="book-description__reserve">
-        <% if @book.book_amount == 0 %>
-          <p>Наразі нема книг в наявності</p>
-        <% else %>
-          <% unless @has_active_borrow %>
-            <button class="button button-reserve" id="openBorrowModal"><%= t('books.show.borrow') %></button>
+        <% if current_client.present? %>
+          <% if @book.book_amount == 0 %>
+            <p>Наразі нема книг в наявності</p>
+          <% else %>
+            <% unless @has_active_borrow %>
+              <button class="button button-reserve" id="openBorrowModal"><%= t('books.show.borrow') %></button>
+            <% end %>
           <% end %>
         <% end %>
       </div>
@@ -80,25 +82,6 @@
   </div>
 </section>
 
-<div id="borrowModal" class="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <%= form_with(model: BorrowedBook.new, url: borrowed_books_path, method: :post, local: true) do |form| %>
-      <%= form.hidden_field :book_id, value: @book.id %>
-      <%= form.hidden_field :library_card_id, value: current_client.library_card.id %>
-      <%= form.hidden_field :date_borrowed, value: Date.today %>
-      <div class="single-div-container">
-        <%= form.label :date_due, t('books.show.date_of_return') %>
-        <%= form.date_field :date_due, min: Date.today, max: Date.today + 30.days, required: true %>
-      </div>
-      <%= form.hidden_field :status, value: 'Активно' %>
-      <div class="single-btn-container">
-        <%= form.submit t('books.show.borrow'), class: 'button button-reserve' %>
-      </div>
-    <% end %>
-  </div>
-</div>
-
 <script>
     window.showFullText = function(button) {
         let textDiv = button.previousElementSibling;
@@ -121,34 +104,58 @@
     document.querySelectorAll('.book-comments__btn').forEach(button => {
         showFullText(button);
     });
-
-    document.addEventListener('turbo:load', function () {
-        var modal = document.getElementById('borrowModal');
-        var btn = document.getElementById('openBorrowModal');
-        var span = document.getElementsByClassName('close')[0];
-        var maxBorrowAllowed = <%= current_client.library_card.max_borrow_allowed %>;
-        var activeBorrowedBooksCount = <%= current_client.library_card.active_borrowed_books_count %>;
-
-        if (btn) {
-            btn.onclick = function() {
-                if (activeBorrowedBooksCount >= maxBorrowAllowed) {
-                    alert('Ви досягли ліміту запозичень.');
-                } else {
-                    modal.style.display = 'block';
-                }
-            }
-        }
-
-        if (span) {
-            span.onclick = function() {
-                modal.style.display = 'none';
-            }
-        }
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-        }
-    });
 </script>
+
+
+<% if current_client.present? %>
+  <div id="borrowModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <%= form_with(model: BorrowedBook.new, url: borrowed_books_path, method: :post, local: true) do |form| %>
+        <%= form.hidden_field :book_id, value: @book.id %>
+        <%= form.hidden_field :library_card_id, value: current_client.library_card.id %>
+        <%= form.hidden_field :date_borrowed, value: Date.today %>
+        <div class="single-div-container">
+          <%= form.label :date_due, t('books.show.date_of_return') %>
+          <%= form.date_field :date_due, min: Date.today, max: Date.today + 30.days, required: true %>
+        </div>
+        <%= form.hidden_field :status, value: 'Активно' %>
+        <div class="single-btn-container">
+          <%= form.submit t('books.show.borrow'), class: 'button button-reserve' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <script>
+      document.addEventListener('turbo:load', function () {
+          var modal = document.getElementById('borrowModal');
+          var btn = document.getElementById('openBorrowModal');
+          var span = document.getElementsByClassName('close')[0];
+          var maxBorrowAllowed = <%= current_client.library_card.max_borrow_allowed %>;
+          var activeBorrowedBooksCount = <%= current_client.library_card.active_borrowed_books_count %>;
+
+          if (btn) {
+              btn.onclick = function() {
+                  if (activeBorrowedBooksCount >= maxBorrowAllowed) {
+                      alert('Ви досягли ліміту запозичень.');
+                  } else {
+                      modal.style.display = 'block';
+                  }
+              }
+          }
+
+          if (span) {
+              span.onclick = function() {
+                  modal.style.display = 'none';
+              }
+          }
+
+          window.onclick = function(event) {
+              if (event.target == modal) {
+                  modal.style.display = 'none';
+              }
+          }
+      });
+  </script>
+<% end %>
