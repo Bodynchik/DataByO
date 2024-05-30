@@ -76,9 +76,9 @@
               №<%= borrowed_book.id %></h2>
             <div class="single-borrowed-book-header-btn-container">
 
-              <% if borrowed_book.status != 'Повернено' %>
-                <button class="write-review"><%= t('clients.profiles.write_review_btn') %></button>
-              <% end %>
+              <% unless @user_reviews.include?(borrowed_book.book.id) %>
+              <button class="write-review" data-book-id="<%=  borrowed_book.book.id  %>"><%=  t('clients.profiles.write_review_btn')  %></button>
+              <%  end %>
 
               <% if borrowed_book.status != 'Повернено' %>
                 <button class="return-book"><%= t('clients.profiles.return_book_btn') %></button>
@@ -251,8 +251,7 @@
 
           btns.forEach(function (btn) {
               btn.onclick = function () {
-                  var bookId = this.parentElement.parentElement.parentElement.getAttribute('data-borrowed-book-id');
-                  console.log(bookId);
+                  var bookId = this.getAttribute('data-book-id');
 
                   var form_book_review = modal.querySelector('.form-book-review');
                   var bookIdField = form_book_review.querySelector('input[name="book_review[book_id]"]');
