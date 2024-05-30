@@ -4,10 +4,6 @@ class BorrowedBooksController < InheritedResources::Base
     @book = @borrowed_book.book
     library_card = current_client.library_card
 
-    return unless library_card.can_borrow_more_books? && @book.book_amount.positive? && @borrowed_book.save
-
-    @book.update(book_amount: @book.book_amount - 1)
-
     if library_card.can_borrow_more_books? && @borrowed_book.save
       Rails.logger.debug @book.book_amount
       Rails.logger.debug
@@ -30,12 +26,9 @@ class BorrowedBooksController < InheritedResources::Base
     @borrowed_book = BorrowedBook.find(params[:id])
     @book = @borrowed_book.book
 
-    if @borrowed_book.update(status: 'Повернено', date_due: Time.zone.now)
-      @book.update(book_amount: @book.book_amount + 1)
-      render json: { success: true }
-    else
-      render json: { success: false, error: 'Не вдалося повернути книгу.' }, status: :unprocessable_entity
-    end
+    @borrowed_book.update(status: 'Повернено', date_due: Time.zone.now)
+    @book.update(book_amount: @book.book_amount + 1)
+    redirect_to clients_profile_path(tab: 'borrow')
   end
 
   private
