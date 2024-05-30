@@ -8,8 +8,8 @@
         <h1 class="book__h1"><%= @book.book_title %></h1>
         <p class="book__authors"><%= @book.authors.map(&:full_name).join(', ') %></p>
         <div class="book__ratings">
-          <div class="book__ratings-image"><%= t('books.show.rating') %>: <%= @book.book_rating || 0 %>/5 <%= image_tag 'book/star', alt: 'star', class: 'star-image' %></div>
-          <div>(<%= t('books.show.reviews') %>: )</div>
+          <div class="book__ratings-image"><%= t('books.show.rating') %>: <%= @book.book_rating || 0 %>/5.0 <%= image_tag 'book/star', alt: 'star', class: 'star-image' %></div>
+          <div>(<%= t('books.show.reviews') %>: <%= @book.book_reviews.count %>)</div>
         </div>
       </div>
       <div class="book-description__genre">
