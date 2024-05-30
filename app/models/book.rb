@@ -33,6 +33,15 @@ class Book < ApplicationRecord
     end
   end
 
+  def update_rating
+    if book_reviews.any?
+      average_rating = book_reviews.average(:rating_value).to_f
+      update_column(:book_rating, average_rating)
+    else
+      update_column(:book_rating, 0)
+    end
+  end
+
   def self.ransackable_associations(_auth_object = nil)
     %w[authors book_authors book_genres genres publisher]
   end
