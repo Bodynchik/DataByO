@@ -59,7 +59,6 @@
         <%= form_with model: @library_card, url: library_cards_path, method: :post do |form| %>
           <h1 class="create-card-title"><%= t('clients.profiles.create_card_title') %></h1>
           <%= form.hidden_field :client_id, value: current_client.id %>
-          <%= form.hidden_field :max_reserve_allowed, value: 1 %>
           <div class="form-group">
             <%= form.label :max_borrow_allowed, t('clients.profiles.create_card_max_borrow') %>
             <%= form.number_field :max_borrow_allowed, class: 'form-control', min: 1, max: 15 %>

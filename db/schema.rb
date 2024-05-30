@@ -158,7 +158,6 @@ ActiveRecord::Schema[7.1].define(version: 20_240_529_112_242) do
 
   create_table 'library_cards', force: :cascade do |t|
     t.bigint 'client_id', null: false
-    t.integer 'max_reserve_allowed'
     t.integer 'max_borrow_allowed'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
