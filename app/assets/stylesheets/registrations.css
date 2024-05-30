@@ -40,7 +40,7 @@
 .form__input::placeholder {
     font-size: 20px;
     font-weight: 400;
-    color: var(--color-text-dark);
+    color: var(--color-text-semi-dark);
 }
 
 .form__btn {

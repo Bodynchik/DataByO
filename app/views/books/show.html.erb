@@ -49,10 +49,14 @@
       <div class="book-description__reserve">
         <% if current_client.present? %>
           <% if @book.book_amount == 0 %>
-            <p>Наразі нема книг в наявності</p>
+            <p><%= t('books.show.no_avail_books') %></p>
           <% else %>
-            <% unless @has_active_borrow %>
-              <button class="button button-reserve" id="openBorrowModal"><%= t('books.show.borrow') %></button>
+            <% if current_client.library_card.present? %>
+              <% unless @has_active_borrow %>
+                <button class="button button-reserve" id="openBorrowModal"><%= t('books.show.borrow') %></button>
+              <% end %>
+            <% else %>
+              <p><%= t('books.show.no_lib_card') %></p>
             <% end %>
           <% end %>
         <% end %>
@@ -106,8 +110,7 @@
     });
 </script>
 
-
-<% if current_client.present? %>
+<% if current_client.present? && current_client.library_card.present? %>
   <div id="borrowModal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>

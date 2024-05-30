@@ -38,6 +38,15 @@ uk:
       borrowed_date_took_to: "Повернути до"
       borrowed_date_return: "Дата повернення"
       borrowed_status: "Статус запозичення"
+      review_date: "Дата написання"
+      review_rating: "Оцінка"
+      no_reviews: "Ви ще не писали рев'ю!"
+      delete_review_btn: "Видалити"
+      write_review: "Напиши рецензію..."
+      leave_review: "Лишити рецензію"
+      need_card_to_review: "Для написання рев'ю потрібен читацький квиток!"
+      need_card_to_borrow: "Для запозичення книг потрібен читацький квиток!"
+      no_borrows: "Ви ще не позичали книги!"
   shared:
     footer:
       contact_info: "Контактні дані:"
@@ -87,3 +96,5 @@ uk:
       borrow: "Запозичити"
       reviews_upper: "Рецензії"
       date_of_return: "Дата повернення"
+      no_avail_books: "Наразі немає книг в наявності"
+      no_lib_card: "Для позичання книги вам потрібно мати читацький квиток"

@@ -38,6 +38,15 @@ en:
       borrowed_date_took_to: "Return due"
       borrowed_date_return: "Date of return"
       borrowed_status: "Borrowing status"
+      review_date: "Date of writing"
+      review_rating: "Rating"
+      no_reviews: "You haven't written a review yet!"
+      delete_review_btn: "Delete"
+      write_review: "Write a review..."
+      leave_review: "Leave a review"
+      need_card_to_review: "You need a library card to write a review!"
+      need_card_to_borrow: "You need a library card to borrow books!"
+      no_borrows: "You haven't borrowed a book yet!"
   shared:
     footer:
       contact_info: "Contact information:"
@@ -87,3 +96,5 @@ en:
       borrow: "Borrow"
       reviews_upper: "Review"
       date_of_return: "Return due"
+      no_avail_books: "No books currently available"
+      no_lib_card: "To borrow a book you need a library card"

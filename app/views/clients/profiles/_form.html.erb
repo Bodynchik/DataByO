@@ -26,13 +26,13 @@
     </div>
 
   <div class="review-text-container">
-    <%= form.text_area :review_text, placeholder: 'Напиши рецензію...', class: 'review-text' %>
+    <%= form.text_area :review_text, placeholder: t('clients.profiles.write_review'), class: 'review-text' %>
   </div>
 
   <%= form.hidden_field :rating_value, id: "rating-input" %>
 
   <div class="button-review-container">
-    <%= form.submit 'Лишити рецензію', class: 'button button-review' %>
+    <%= form.submit t('clients.profiles.leave_review'), class: 'button button-review' %>
   </div>
 <% end %>
 
