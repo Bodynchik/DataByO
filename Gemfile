@@ -36,6 +36,8 @@ gem 'sassc-rails'
 
 gem 'kaminari'
 
+gem 'rufus-scheduler'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
