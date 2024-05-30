@@ -2,10 +2,8 @@
 
 one:
   client: one
-  max_reserve_allowed: 1
   max_borrow_allowed: 1
 
 two:
   client: two
-  max_reserve_allowed: 1
   max_borrow_allowed: 1

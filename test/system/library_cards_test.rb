@@ -16,7 +16,6 @@ class LibraryCardsTest < ApplicationSystemTestCase
 
     fill_in 'Client', with: @library_card.client_id
     fill_in 'Max borrow allowed', with: @library_card.max_borrow_allowed
-    fill_in 'Max reserve allowed', with: @library_card.max_reserve_allowed
     click_on 'Create Library card'
 
     assert_text 'Library card was successfully created'
@@ -29,7 +28,6 @@ class LibraryCardsTest < ApplicationSystemTestCase
 
     fill_in 'Client', with: @library_card.client_id
     fill_in 'Max borrow allowed', with: @library_card.max_borrow_allowed
-    fill_in 'Max reserve allowed', with: @library_card.max_reserve_allowed
     click_on 'Update Library card'
 
     assert_text 'Library card was successfully updated'

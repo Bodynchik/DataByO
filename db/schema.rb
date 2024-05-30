@@ -156,13 +156,12 @@ ActiveRecord::Schema[7.1].define(version: 20_240_529_112_242) do
     t.index ['genre_name'], name: 'index_genres_on_genre_name', unique: true
   end
 
-  create_table 'library_cards', force: :cascade do |t|
-    t.bigint 'client_id', null: false
-    t.integer 'max_reserve_allowed'
-    t.integer 'max_borrow_allowed'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.index ['client_id'], name: 'index_library_cards_on_client_id'
+  create_table "library_cards", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.integer "max_borrow_allowed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_library_cards_on_client_id"
   end
 
   create_table 'publishers', force: :cascade do |t|

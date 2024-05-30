@@ -18,8 +18,7 @@ class LibraryCardsControllerTest < ActionDispatch::IntegrationTest
   test 'should create library_card' do
     assert_difference('LibraryCard.count') do
       post library_cards_url,
-           params: { library_card: { client_id: @library_card.client_id, max_borrow_allowed: @library_card.max_borrow_allowed,
-                                     max_reserve_allowed: @library_card.max_reserve_allowed } }
+           params: { library_card: { client_id: @library_card.client_id, max_borrow_allowed: @library_card.max_borrow_allowed } }
     end
 
     assert_redirected_to library_card_url(LibraryCard.last)
@@ -37,8 +36,7 @@ class LibraryCardsControllerTest < ActionDispatch::IntegrationTest
 
   test 'should update library_card' do
     patch library_card_url(@library_card),
-          params: { library_card: { client_id: @library_card.client_id, max_borrow_allowed: @library_card.max_borrow_allowed,
-                                    max_reserve_allowed: @library_card.max_reserve_allowed } }
+          params: { library_card: { client_id: @library_card.client_id, max_borrow_allowed: @library_card.max_borrow_allowed } }
     assert_redirected_to library_card_url(@library_card)
   end
 
