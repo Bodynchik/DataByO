@@ -53,7 +53,7 @@ class BookReviewsController < ApplicationController
     @book_review.destroy!
 
     respond_to do |format|
-      format.html { redirect_to book_reviews_url, notice: 'BookReview was successfully destroyed.' }
+      format.html { redirect_to clients_profile_path(tab: 'review'), notice: 'BookReview was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

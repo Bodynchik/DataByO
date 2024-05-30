@@ -12,6 +12,8 @@ class Clients::ProfilesController < ApplicationController
     when 'borrow'
       @borrowed_books = current_client.library_card.borrowed_books.includes(:book)
       @user_reviews = BookReview.where(library_card_id: current_client.library_card.id).pluck(:book_id)
+    when 'review'
+      @reviews = BookReview.where(library_card_id: current_client.library_card.id).includes(:book)
     end
   end
 
@@ -22,7 +24,7 @@ class Clients::ProfilesController < ApplicationController
   def update
     @client = current_client
     @client.update(client_params)
-    redirect_to clients_profile_path(tab: 'personal')
+    redirect_to clients_profile_path(tab: 'review')
   end
 
   private
