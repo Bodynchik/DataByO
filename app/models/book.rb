@@ -23,6 +23,8 @@ class Book < ApplicationRecord
   validates :genres, presence: { message: 'select, please' }
   validate :acceptable_image
 
+  before_save :set_default_book_rating
+
   def acceptable_image
     return unless book_image.attached?
 
@@ -48,5 +50,11 @@ class Book < ApplicationRecord
 
   def self.ransackable_attributes(_auth_object = nil)
     %w[book_age_rating book_amount book_rating book_title book_year_of_pub created_at id id_value isbn publisher_id updated_at]
+  end
+
+  private
+
+  def set_default_book_rating
+    self.book_rating ||= 0
   end
 end

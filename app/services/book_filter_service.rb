@@ -53,4 +53,9 @@ class BookFilterService
       age_ratings = @params[:age_rating].split(',')
       @books = @books.where(book_age_rating: age_ratings)
   end
+
+  def limit_books
+    limit = @params[:limit].presence || 4
+    @books = @books.limit(limit)
+  end
 end

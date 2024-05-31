@@ -87,6 +87,11 @@ class BooksController < ApplicationController
                                  :book_year_of_pub, :publisher_id, :book_amount, :book_image, genre_ids: [], author_ids: [])
   end
 
+
+  # def filter_books_and_sort
+  #     @books = BookQueryService.filter_and_sort_books(params)
+  # end
+
   def filter_books_and_sort
     @books = BookFilterService.new(params).call
 

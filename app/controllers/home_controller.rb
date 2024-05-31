@@ -1,5 +1,8 @@
 class HomeController < ApplicationController
   def index
-    @latest_books = Book.order(created_at: :desc).limit(4)
+    @latest_books = BookQueryService.latest_books
+    @top_books = BookQueryService.top_books
+    @top_books_by_reviews = BookQueryService.top_books_by_reviews
   end
 end
+
