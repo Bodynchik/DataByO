@@ -74,7 +74,7 @@
     <div class="book-comments__body">
       <% @book.book_reviews.each do |book_review| %>
         <div class="book-comments__item">
-          <p class="book-comments__client"><%= book_review.library_card.client.sur_name %></p>
+          <p class="book-comments__client"><%= book_review.library_card.client.sur_name %>, <%= book_review.rating_value %>/5</p>
           <p class="book-comments__date"><%= book_review.created_at.strftime("%d.%m.%Y") %></p>
           <div class="book-comments__text">
             <%= book_review.review_text %>

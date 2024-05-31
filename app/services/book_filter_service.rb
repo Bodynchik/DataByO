@@ -19,47 +19,38 @@ class BookFilterService
     return if @params[:genres].blank?
 
     selected_genres = @params[:genres].split(',').map(&:to_i)
-    placeholders = selected_genres.map { '?' }.join(', ')
-    query = <<-SQL.squish
-        SELECT book_id
-        FROM book_genres
-        WHERE genre_id IN (#{placeholders})
-        GROUP BY book_id
-        HAVING COUNT(DISTINCT genre_id) = ?
-    SQL
 
-    book_ids = ActiveRecord::Base.connection.execute(ActiveRecord::Base.send(:sanitize_sql_array, [query, *selected_genres, selected_genres.length])).pluck('book_id')
-    @books = @books.where(id: book_ids)
+    @books = @books.joins(:genres)
+                   .where(genres: { id: selected_genres })
+                   .distinct
   end
 
   def filter_by_publishers
-    @books = @books.where(publisher_id: @params[:publishers]) if @params[:publishers].present?
+    return unless @params[:publishers].present?
+      publisher_ids = @params[:publishers].split(',').map(&:to_i)
+      @books = @books.where(publisher_id: publisher_ids)
   end
 
   def filter_by_authors
     return if @params[:authors].blank?
 
-    selected_authors = @params[:authors].split(',')
-    placeholders = selected_authors.map { '?' }.join(',')
-    authors_count = selected_authors.length
+    selected_authors = @params[:authors].split(',').map(&:to_i)
 
-    sql = <<-SQL.squish
-        SELECT book_id
-        FROM book_authors
-        WHERE author_id IN (#{placeholders})
-        GROUP BY book_id
-        HAVING COUNT(DISTINCT author_id) = ?
-    SQL
-
-    book_ids = BookAuthor.find_by_sql([sql, *selected_authors, authors_count]).map(&:book_id)
-    @books = @books.where(id: book_ids)
+    @books = @books.joins(:authors)
+                   .where(authors: { id: selected_authors })
+                   .distinct
   end
 
   def filter_by_publish_year
-    @books = @books.where(book_year_of_pub: @params[:publish_year]) if @params[:publish_year].present?
+    return unless @params[:publish_year].present?
+      year_of_pub = @params[:publish_year].split(',').map(&:to_i)
+      @books = @books.where(book_year_of_pub: year_of_pub)
   end
 
+
   def filter_by_age_rating
-    @books = @books.where(book_age_rating: @params[:age_rating]) if @params[:age_rating].present?
+    return unless @params[:age_rating].present?
+      age_ratings = @params[:age_rating].split(',')
+      @books = @books.where(book_age_rating: age_ratings)
   end
 end
