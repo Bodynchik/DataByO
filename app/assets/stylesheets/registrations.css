@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: calc(100vh - 48px);
     color: var(--color-text-dark);
 }
 
@@ -24,6 +24,23 @@
     flex-direction: column;
     align-items: center;
     gap: 15px;
+}
+
+.section-reg__link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.section-reg__link a {
+    font-size: 16px;
+    font-weight: 400;
+    color: black;
+}
+
+.section-reg__link a:hover {
+    text-decoration: underline;
 }
 
 .form__input {

@@ -5,7 +5,8 @@ Rails.application.routes.draw do
     # Шляхи до реєстрації та сесії клієнта
     devise_for :clients, controllers: {
       sessions: 'clients/sessions',
-      registrations: 'clients/registrations'
+      registrations: 'clients/registrations',
+      passwords: 'clients/passwords'
     }
 
     resources :genres

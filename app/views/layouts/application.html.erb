@@ -14,7 +14,7 @@
   </head>
 
   <body>
-    <% unless controller_name == 'sessions' || controller_name == 'registrations' %>
+    <% unless controller_name == 'sessions' || controller_name == 'registrations' || controller_name == 'passwords' %>
       <%= render 'shared/header' %>
     <% end %>
 
@@ -22,7 +22,7 @@
       <div class="page-container__wrapper"><%= yield %></div>
     </section>
 
-    <% unless controller_name == 'sessions' || controller_name == 'registrations' %>
+    <% unless controller_name == 'sessions' || controller_name == 'registrations' || controller_name == 'passwords' %>
     <%= render 'shared/footer' %>
     <% end %>
   </body>

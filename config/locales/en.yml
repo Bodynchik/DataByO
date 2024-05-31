@@ -2,6 +2,14 @@ en:
   en: "English"
   uk: "Ukrainian"
   clients:
+    passwords:
+      new:
+        h2: 'Reset'
+        reset_pass: 'Reset password'
+      edit:
+        h2: 'Change'
+        change_pass: 'Change password'
+        place: 'Confirm Password'
     registrations:
       new:
         surname: "Surname"
@@ -14,6 +22,7 @@ en:
       new:
         log_in: "Login"
         sign_in: "Sign in"
+        for_pass: 'Forgot password'
     profiles:
       profile: "Profile"
       card: "Library card"

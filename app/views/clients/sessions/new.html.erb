@@ -6,5 +6,6 @@
       <div><%= f.password_field :password, placeholder: t('clients.registrations.new.pass'), class: "form__input" %></div>
       <div><%= f.submit t('.sign_in'), class: "button form__btn" %></div>
     <% end %>
+    <div class="section-reg__link"><%= link_to t('.for_pass'), new_client_password_path, class: "link-registration" %></div>
   </div>
 </div>

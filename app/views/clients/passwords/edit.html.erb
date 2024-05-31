@@ -1,0 +1,11 @@
+<div class="section-reg">
+  <div class="section-reg__wrapper">
+    <h1 class="section-reg__h1"><%= t('.h2') %></h1>
+    <%= form_with(model: resource, url: password_path(resource_name), html: { method: :put }, class: "section-reg__form") do |f| %>
+      <%= f.hidden_field :reset_password_token %>
+      <div><%= f.password_field :password, placeholder: t('clients.registrations.new.pass'), class: "form__input" %></div>
+      <div><%= f.password_field :password_confirmation, placeholder: t('.place'), class: "form__input" %></div>
+      <div><%= f.submit t('.change_pass'), class: "button form__btn" %></div>
+    <% end %>
+  </div>
+</div>

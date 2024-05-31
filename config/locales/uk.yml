@@ -2,6 +2,14 @@ uk:
   en: "Англійська"
   uk: "Українська"
   clients:
+    passwords:
+      new:
+        h2: 'Скидання'
+        reset_pass: 'Скинути пароль'
+      edit:
+        h2: 'Зміна'
+        change_pass: 'Змінити пароль'
+        place: 'Підтвердіть пароль'
     registrations:
       new:
         surname: "Прізвище"
@@ -14,6 +22,7 @@ uk:
       new:
         log_in: "Авторизація"
         sign_in: "Увійти"
+        for_pass: 'Забув пароль'
     profiles:
       profile: "Профіль"
       card: "Читацький квиток"
