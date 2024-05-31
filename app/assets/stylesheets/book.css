@@ -37,6 +37,60 @@
     background-color: var(--color-bg-hover);
 }
 
+.books-dropdown {
+    display: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: var(--color-bg-medium);
+    border-radius: var(--border-radius);
+}
+
+.books-dropdown__item {
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.2s linear;
+}
+
+.books-dropdown__item:hover {
+    background-color: var(--color-bg-hover);
+}
+
+.books-filters__item.active + .books-dropdown {
+    display: block;
+}
+
+
+.books-filters-buttons {
+    display: inline-block;
+    justify-content: center;
+    margin-right: 15%;
+    margin-left: 15%;
+}
+
+.apply-filters, .reset-filters {
+    margin-top: 5%;
+    padding: 7px 7px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.apply-filters{
+    background-color: #754329;
+    border-radius: var(--border-radius);
+    color: var(--color-bg-light);
+}
+
+.reset-filters{
+    border-radius: var(--border-radius);
+    font: var(--color-bg-light);
+}
+
+.apply-filters:hover {
+    background-color: var(--color-bg-hover);
+}
+
+
 .books-list {
     margin: 0 auto;
 }
