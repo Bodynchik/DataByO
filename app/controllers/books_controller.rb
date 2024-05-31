@@ -4,26 +4,26 @@ class BooksController < ApplicationController
 
   # GET /books or /books.json
   def index
-    @books = Book.page(params[:page]).per(9)
-    load_filter_options
+    @books = Book.all
     filter_books_and_sort
   end
 
-  # GET /books/1 or /books/1.json
   def show
     @book = Book.find(params[:id])
 
-    @has_active_borrow = if current_client.present? && current_client.library_card.present?
-                           current_client.library_card.borrowed_books.exists?(book_id: @book.id, status: 'Активно')
-                         else
-                           false
-                         end
+    if current_client.present? && current_client.library_card.present?
+      @has_active_borrow = current_client.library_card.borrowed_books.exists?(book_id: @book.id, status: 'Активно')
+    else
+      @has_active_borrow = false
+    end
   end
 
+  # GET /books/new
   def new
     @book = Book.new
   end
 
+  # GET /books/1/edit
   def edit; end
 
   # POST /books or /books.json
@@ -78,8 +78,8 @@ class BooksController < ApplicationController
 
   def set_publishers_authors_genres
     @publishers = Publisher.all
-    @authors = Author.all
-    @genres = Genre.all
+    @all_authors = Author.all
+    @all_genres = Genre.all
   end
 
   def book_params
@@ -88,9 +88,7 @@ class BooksController < ApplicationController
   end
 
   def filter_books_and_sort
-    @books = Book.all
-    @books = filter_books
-
+    @books = BookFilterService.new(params).call
 
     return unless params[:sort]
 
@@ -105,59 +103,5 @@ class BooksController < ApplicationController
 
     sort_direction = params[:direction] || 'asc'
     @books = @books.order(sort_column => sort_direction)
-  end
-
-  def load_filter_options
-    @genres = Genre.all
-    @publishers = Publisher.all
-    @authors = Author.all
-    @publish_years = Book.distinct.pluck(:book_year_of_pub)
-    @age_ratings = Book.distinct.pluck(:book_age_rating)
-  end
-
-  def filter_books
-    if params[:genres].present?
-      selected_genres = params[:genres].split(',').map(&:to_i)
-      placeholders = selected_genres.map { '?' }.join(', ')
-      query = <<-SQL.squish
-        SELECT book_id
-        FROM book_genres
-        WHERE genre_id IN (#{placeholders})
-        GROUP BY book_id
-        HAVING COUNT(DISTINCT genre_id) = ?
-      SQL
-
-      book_ids = ActiveRecord::Base.connection.execute(ActiveRecord::Base.send(:sanitize_sql_array, [query, *selected_genres, selected_genres.length])).pluck('book_id')
-
-      @books = @books.where(id: book_ids)
-
-      Rails.logger.debug(params[:genres])
-      Rails.logger.debug(@books)
-    end
-
-    @books = @books.where(publisher_id: params[:publishers]) if params[:publishers].present?
-
-    if params[:authors].present?
-      selected_authors = params[:authors].split(',')
-      placeholders = selected_authors.map { '?' }.join(',')
-      authors_count = selected_authors.length
-
-      sql = <<-SQL.squish
-        SELECT book_id
-        FROM book_authors
-        WHERE author_id IN (#{placeholders})
-        GROUP BY book_id
-        HAVING COUNT(DISTINCT author_id) = ?
-      SQL
-
-      book_ids = BookAuthor.find_by_sql([sql, *selected_authors, authors_count]).map(&:book_id)
-      @books = Book.where(id: book_ids)
-    end
-
-    @books = @books.where(book_year_of_pub: params[:publish_year]) if params[:publish_year].present?
-
-    @books = @books.where(book_age_rating: params[:age_rating]) if params[:age_rating].present?
-
-    @books
   end
 end
