@@ -48,6 +48,10 @@
             <h2 class="card-group-title"><%= t('clients.profiles.card_max_borrow') %></h2>
             <p class="card-group-info" id="card-group-info-id"><%= @library_card.max_borrow_allowed %></p>
           </div>
+          <div class="form-group">
+            <h2 class="card-group-title"><%= t('clients.profiles.card_overdue_books') %></h2>
+            <p class="card-group-info" id="card-group-info-id"><%= @library_card.overdue_books %> / 3</p>
+          </div>
           <div class="button-personal-container">
             <h2>
               <%= t('clients.profiles.card_current_borrow') %>: <%= @library_card.active_borrowed_books_count %>
@@ -59,6 +63,7 @@
         <%= form_with model: @library_card, url: library_cards_path, method: :post do |form| %>
           <h1 class="create-card-title"><%= t('clients.profiles.create_card_title') %></h1>
           <%= form.hidden_field :client_id, value: current_client.id %>
+          <%= form.hidden_field :overdue_books, value: 0 %>
           <div class="form-group">
             <%= form.label :max_borrow_allowed, t('clients.profiles.create_card_max_borrow') %>
             <%= form.number_field :max_borrow_allowed, class: 'form-control', min: 1, max: 15 %>
