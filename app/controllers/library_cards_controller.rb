@@ -13,6 +13,6 @@ class LibraryCardsController < InheritedResources::Base
   private
 
   def library_card_params
-    params.require(:library_card).permit(:client_id, :max_borrow_allowed)
+    params.require(:library_card).permit(:client_id, :overdue_books, :max_borrow_allowed)
   end
 end

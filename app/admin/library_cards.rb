@@ -21,17 +21,20 @@ ActiveAdmin.register LibraryCard do
       "#{card.client.surname} #{card.client.name} #{card.client.midname}"
     end
     column :max_borrow_allowed
+    column :overdue_books
     column :created_at
     actions
   end
 
   filter :client, as: :select, collection: Client.all.map { |client| ["#{client.surname} #{client.name} #{client.midname}", client.id] }
   filter :max_borrow_allowed
+  filter :overdue_books
 
   form do |f|
     f.inputs do
       f.input :client, as: :select, collection: Client.all.map { |client| ["#{client.surname} #{client.name} #{client.midname}", client.id] }
       f.input :max_borrow_allowed
+      f.input :overdue_books
     end
     f.actions
   end

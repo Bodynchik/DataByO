@@ -24,6 +24,7 @@ en:
       card_create_date: "Date of creation"
       card_max_reserve: "Maximum number of reservations"
       card_max_borrow: "Maximum number of borrowings"
+      card_overdue_books: "Count of overdue books"
       card_current_reserve: "Reserved"
       card_current_borrow: "Borrowed"
       create_card_title: "You don't have a library card yet. Let's fix it!"

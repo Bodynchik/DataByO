@@ -24,6 +24,7 @@ uk:
       card_create_date: "Дата створення"
       card_max_reserve: "Максимальна кількість резервацій"
       card_max_borrow: "Максимальна кількість запозичень"
+      card_overdue_books: "Кількість прострочених книг"
       card_current_reserve: "Зарезервовано"
       card_current_borrow: "Запозичено"
       create_card_title: "Ви ще не маєте читацького квитка. Виправимо це!"
