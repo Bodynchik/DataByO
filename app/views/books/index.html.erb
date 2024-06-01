@@ -69,22 +69,31 @@
       </ul>
 
       <div class="books-filters-buttons">
-        <ul class="apply-filters">Застосувати фільтри</ul>
-        <ul class="reset-filters">Скинути всі фільтри</ul>
+        <ul class="apply-filters"><%= t('books.index.apply_filters') %></ul>
+        <ul class="reset-filters"><%= t('books.index.reset_filters') %></ul>
       </div>
     </div>
 
     <div class="books-list">
       <div class="books-sorts">
         <ul class="books-sorts__menu">
+<!--          <li class="books-sort__link">-->
+<!--            <a href="#" class="sort-link" data-sort="book_rating" data-direction="asc"><%#= t('books.index.sort_by_rating') %></a>-->
+<!--          </li>-->
+<!--          <li class="books-sort__link">-->
+<!--            <a href="#" class="sort-link" data-sort="book_popularity" data-direction="asc"><%#= t('books.index.sort_by_popularity') %></a>-->
+<!--          </li>-->
+<!--          <li class="books-sort__link">-->
+<!--            <a href="#" class="sort-link" data-sort="book_year_of_pub" data-direction="asc"><%#= t('books.index.sort_by_date') %></a>-->
+<!--          </li>-->
           <li class="books-sort__link">
-            <a href="#" class="sort-link" data-sort="book_rating" data-direction="asc"><%= t('books.index.sort_by_rating') %></a>
+            <%= link_to t('books.index.sort_by_rating'), books_path(sort: 'book_rating', direction: params[:direction] == 'asc' ? 'desc' : 'asc'), class: 'sort-link' %>
           </li>
           <li class="books-sort__link">
-            <a href="#" class="sort-link" data-sort="book_popularity" data-direction="asc"><%= t('books.index.sort_by_popularity') %></a>
+            <%= link_to t('books.index.sort_by_popularity'), books_path(sort: 'book_popularity', direction: params[:direction] == 'asc' ? 'desc' : 'asc'), class: 'sort-link' %>
           </li>
           <li class="books-sort__link">
-            <a href="#" class="sort-link" data-sort="book_year_of_pub" data-direction="asc"><%= t('books.index.sort_by_date') %></a>
+            <%= link_to t('books.index.sort_by_date'), books_path(sort: 'created_at', direction: params[:direction] == 'asc' ? 'desc' : 'asc'), class: 'sort-link' %>
           </li>
         </ul>
       </div>
@@ -170,39 +179,5 @@
                     document.querySelector('.books-list-grid').innerHTML = new DOMParser().parseFromString(html, 'text/html').querySelector('.books-list-grid').innerHTML;
                 });
         }
-
-        document.querySelectorAll('.sort-link').forEach(link => {
-            link.addEventListener('click', function(event) {
-                event.preventDefault();
-                const sort = this.getAttribute('data-sort');
-                let direction = this.getAttribute('data-direction');
-                const filters = {...selectedFilters};
-
-                // Зміна напрямку сортування
-                if (direction === 'asc') {
-                    direction = 'desc';
-                } else {
-                    direction = 'asc';
-                }
-
-                // Оновлення атрибута напрямку сортування в HTML
-                this.setAttribute('data-direction', direction);
-
-                filters.sort = sort;
-                filters.direction = direction;
-
-                const params = new URLSearchParams(filters);
-                const url = `/books?${params.toString()}`;
-
-                // Оновлення URL з напрямком сортування
-                history.pushState({}, '', url);
-
-                fetch(url)
-                    .then(response => response.text())
-                    .then(html => {
-                        document.querySelector('.books-list-grid').innerHTML = new DOMParser().parseFromString(html, 'text/html').querySelector('.books-list-grid').innerHTML;
-                    });
-            });
-        });
     });
 </script>

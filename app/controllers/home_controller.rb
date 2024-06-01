@@ -5,4 +5,3 @@ class HomeController < ApplicationController
     @top_books_by_reviews = BookQueryService.top_books_by_reviews
   end
 end
-

@@ -61,15 +61,11 @@
     display: block;
 }
 
-
-
-
-
 .books-filters-buttons {
-    display: inline-block;
+    margin-top: 15px;
+    display: grid;
     justify-content: center;
-    margin-right: 15%;
-    margin-left: 15%;
+    gap: 10px;
 }
 
 .apply-filters, .reset-filters {
@@ -77,35 +73,31 @@
     cursor: pointer;
     font-size: 16px;
     font-weight: 700;
-
+    margin: 0;
+    text-align: center;
+    transition: 0.2s linear;
 }
 
 .apply-filters{
-    background-color: #4c2a18;
+    background-color: var(--color-bg-dark);
     border-radius: var(--border-radius);
     color: var(--color-bg-light);
 }
 
 .reset-filters{
-    color: #754329;
+    color: var(--color-bg-dark);
     cursor: pointer;
-    transition: 0.3s linear;
+    transition: 0.2s linear;
 }
 
 .apply-filters:hover {
     background-color: var(--color-bg-light);
-    color: var(--color-bg-hover);
+    color: var(--color-bg-dark);
 }
 
 .reset-filters:hover {
-    font-size: 16.5px;
     color: var(--color-bg-light);
 }
-
-
-
-
-
 
 .books-list {
     margin: 0 auto;

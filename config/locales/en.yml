@@ -94,6 +94,8 @@ en:
       sort_by_rating: "Sort by rating"
       sort_by_popularity: "Sort by popularity"
       sort_by_date: "Sort by date added"
+      apply_filters: "Apply filters"
+      reset_filters: "Reset all filters"
     show:
       rating: "Rating"
       reviews: "reviews"

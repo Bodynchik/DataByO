@@ -94,6 +94,8 @@ uk:
       sort_by_rating: "Сортувати за рейтингом"
       sort_by_popularity: "Сортувати за популярністю"
       sort_by_date: "Сортувати за датою додавання"
+      apply_filters: "Застосувати фільтри"
+      reset_filters: "Скинути всі фільтри"
     show:
       rating: "Рейтинг"
       reviews: "рецензій"

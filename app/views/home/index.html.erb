@@ -70,10 +70,10 @@
               <div class="book-photo">
                 <%= image_tag(book.book_image, class: 'image-grid') if book.book_image.attached? %>
               </div>
-              <h2 class="book-title"><%= book.book_title %></h2>
+              <h2 class="book-title"><%= truncate(book.book_title, length: 25) %></h2>
               <div class="author-and-avail">
                 <p class="book-author"><%= book.authors.map(&:full_name).join(', ') %></p>
-                <p class="avail-amount">В наявності <%= book.book_amount %></p>
+                <p class="avail-amount"><%= t('home.available') %> <%= book.book_amount %></p>
               </div>
             </div>
           <% end %>
@@ -95,10 +95,10 @@
             <div class="book-photo">
               <%= image_tag(book.book_image, class: 'image-grid') if book.book_image.attached? %>
             </div>
-            <h2 class="book-title"><%= book.book_title %></h2>
+            <h2 class="book-title"><%= truncate(book.book_title, length: 25) %></h2>
             <div class="author-and-avail">
               <p class="book-author"><%= book.authors.map(&:full_name).join(', ') %></p>
-              <p class="avail-amount">В наявності <%= book.book_amount %></p>
+              <p class="avail-amount"><%= t('home.available') %> <%= book.book_amount %></p>
             </div>
           </div>
         <% end %>
