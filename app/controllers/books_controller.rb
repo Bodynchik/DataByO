@@ -4,8 +4,12 @@ class BooksController < ApplicationController
 
   # GET /books or /books.json
   def index
-    @books = Book.all
+    @books = BookFilterService.new(params).call
     filter_books_and_sort
+    @unique_publish_years = Book.cached_unique_publish_years
+    @unique_age_ratings = Book.cached_unique_age_ratings
+
+    expires_in 1.day, public: true, 'max-age': 86400
   end
 
   def show
@@ -88,10 +92,6 @@ class BooksController < ApplicationController
   end
 
   def filter_books_and_sort
-    @books = BookFilterService.new(params).call
-
-    return unless params[:sort]
-
     sort_column = case params[:sort]
                   when 'book_rating'
                     'book_rating'
@@ -102,6 +102,7 @@ class BooksController < ApplicationController
                   end
 
     sort_direction = params[:direction] || 'asc'
+
     @books = @books.order(sort_column => sort_direction)
   end
 end

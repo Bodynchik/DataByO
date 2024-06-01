@@ -1,100 +1,160 @@
 <section class="section-books">
   <div class="section-books__wrapper">
     <div class="books-filters">
-      <ul class="books-filters__menu">
-        <!-- Genres filter -->
-        <li class="books-filters__item" data-filter="genres"><%= t('books.index.genres') %></li>
-        <ul class="books-dropdown genres-dropdown">
-          <% Genre.all.each do |genre| %>
-            <li class="books-dropdown__item">
-              <label>
-                <input type="checkbox" class="filter-checkbox" data-filter="genres" value="<%= genre.id %>">
-                <%= genre.genre_name %>
-              </label>
-            </li>
-          <% end %>
+      <%= form_with(url: books_path, method: :get, local: true, class: 'books-filters-form') do %>
+        <ul class="books-filters__menu">
+          <!-- Genres filter -->
+          <li class="books-filters__item">
+            <span class="filter-title" data-filter="genres"><%= t('books.index.genres') %></span>
+            <ul class="books-dropdown genres-dropdown">
+              <% Genre.all.each do |genre| %>
+                <li class="books-dropdown__item">
+                  <label>
+                    <input type="checkbox" name="genres[]" value="<%= genre.id %>" <%= 'checked' if params[:genres]&.include?(genre.id.to_s) %>>
+                    <%= genre.genre_name %>
+                  </label>
+                </li>
+              <% end %>
+            </ul>
+          </li>
+
+          <!-- Publishers filter -->
+          <li class="books-filters__item">
+            <span class="filter-title" data-filter="publishers"><%= t('books.index.publishers') %></span>
+            <ul class="books-dropdown publishers-dropdown">
+              <% Publisher.all.each do |publisher| %>
+                <li class="books-dropdown__item">
+                  <label>
+                    <input type="checkbox" name="publishers[]" value="<%= publisher.id %>" <%= 'checked' if params[:publishers]&.include?(publisher.id.to_s) %>>
+                    <%= publisher.publisher_name %>
+                  </label>
+                </li>
+              <% end %>
+            </ul>
+          </li>
+
+          <!-- Authors filter -->
+          <li class="books-filters__item">
+            <span class="filter-title" data-filter="authors"><%= t('books.index.authors') %></span>
+            <ul class="books-dropdown authors-dropdown">
+              <% Author.all.each do |author| %>
+                <li class="books-dropdown__item">
+                  <label>
+                    <input type="checkbox" name="authors[]" value="<%= author.id %>" <%= 'checked' if params[:authors]&.include?(author.id.to_s) %>>
+                    <%= author.full_name %>
+                  </label>
+                </li>
+              <% end %>
+            </ul>
+          </li>
+
+          <!-- Publish Year filter -->
+          <li class="books-filters__item">
+            <span class="filter-title" data-filter="publish_year"><%= t('books.index.publish_year') %></span>
+            <ul class="books-dropdown publish_year-dropdown">
+              <% @unique_publish_years.each do |year| %>
+                <li class="books-dropdown__item">
+                  <label>
+                    <input type="checkbox" name="publish_year[]" value="<%= year %>" <%= 'checked' if params[:publish_year]&.include?(year.to_s) %>>
+                    <%= year %>
+                  </label>
+                </li>
+              <% end %>
+            </ul>
+          </li>
+
+          <!-- Age Rating filter -->
+          <li class="books-filters__item">
+            <span class="filter-title" data-filter="age_rating"><%= t('books.index.age_rating') %></span>
+            <ul class="books-dropdown age_rating-dropdown">
+              <% @unique_age_ratings.each do |rating| %>
+                <li class="books-dropdown__item">
+                  <label>
+                    <input type="checkbox" name="age_rating[]" value="<%= rating %>" <%= 'checked' if params[:age_rating]&.include?(rating) %>>
+                    <%= rating %>
+                  </label>
+                </li>
+              <% end %>
+            </ul>
+          </li>
         </ul>
 
-        <!-- Publishers filter -->
-        <li class="books-filters__item" data-filter="publishers"><%= t('books.index.publishers') %></li>
-        <ul class="books-dropdown publishers-dropdown">
-          <% Publisher.all.each do |publisher| %>
-            <li class="books-dropdown__item">
-              <label>
-                <input type="checkbox" class="filter-checkbox" data-filter="publishers" value="<%= publisher.id %>">
-                <%= publisher.publisher_name %>
-              </label>
-            </li>
-          <% end %>
-        </ul>
-
-        <!-- Authors filter -->
-        <li class="books-filters__item" data-filter="authors"><%= t('books.index.authors') %></li>
-        <ul class="books-dropdown authors-dropdown">
-          <% Author.all.each do |author| %>
-            <li class="books-dropdown__item">
-              <label>
-                <input type="checkbox" class="filter-checkbox" data-filter="authors" value="<%= author.id %>">
-                <%= author.full_name %>
-              </label>
-            </li>
-          <% end %>
-        </ul>
-
-        <!-- Publish Year filter -->
-        <li class="books-filters__item" data-filter="publish_year"><%= t('books.index.publish_year') %></li>
-        <ul class="books-dropdown publish_year-dropdown">
-          <% @books.pluck(:book_year_of_pub).uniq.each do |year| %>
-            <li class="books-dropdown__item">
-              <label>
-                <input type="checkbox" class="filter-checkbox" data-filter="publish_year" value="<%= year %>">
-                <%= year %>
-              </label>
-            </li>
-          <% end %>
-        </ul>
-
-        <!-- Age Rating filter -->
-        <li class="books-filters__item" data-filter="age_rating"><%= t('books.index.age_rating') %></li>
-        <ul class="books-dropdown age_rating-dropdown">
-          <% @books.pluck(:book_age_rating).uniq.each do |rating| %>
-            <li class="books-dropdown__item">
-              <label>
-                <input type="checkbox" class="filter-checkbox" data-filter="age_rating" value="<%= rating %>">
-                <%= rating %>
-              </label>
-            </li>
-          <% end %>
-        </ul>
-      </ul>
-
-      <div class="books-filters-buttons">
-        <ul class="apply-filters"><%= t('books.index.apply_filters') %></ul>
-        <ul class="reset-filters"><%= t('books.index.reset_filters') %></ul>
-      </div>
+        <div class="books-filters-buttons">
+          <button type="submit" class="apply-filters"><%= t('books.index.apply_filters') %></button>
+          <a href="<%= books_path %>" class="reset-filters"><%= t('books.index.reset_filters') %></a>
+        </div>
+      <% end %>
     </div>
+
+    <style>
+        .books-dropdown {
+            display: none;
+        }
+    </style>
+
+    <script>
+        function toggleDropdown() {
+            const filter = this.getAttribute('data-filter');
+            const dropdown = document.querySelector(`.${filter}-dropdown`);
+
+            document.querySelectorAll('.books-dropdown').forEach(list => {
+                if (list !== dropdown) {
+                    list.style.display = 'none';
+                }
+            });
+
+            if (dropdown.style.display === 'block') {
+                dropdown.style.display = 'none';
+            } else {
+                dropdown.style.display = 'block';
+            }
+        }
+
+        function initializeEventHandlers() {
+            document.querySelectorAll('.filter-title').forEach(title => {
+                title.removeEventListener('click', toggleDropdown);
+                title.addEventListener('click', toggleDropdown);
+            });
+        }
+
+        document.addEventListener('turbo:load', initializeEventHandlers);
+        document.addEventListener('turbo:render', initializeEventHandlers);
+        document.addEventListener('DOMContentLoaded', initializeEventHandlers);
+    </script>
 
     <div class="books-list">
       <div class="books-sorts">
         <ul class="books-sorts__menu">
-<!--          <li class="books-sort__link">-->
-<!--            <a href="#" class="sort-link" data-sort="book_rating" data-direction="asc"><%#= t('books.index.sort_by_rating') %></a>-->
-<!--          </li>-->
-<!--          <li class="books-sort__link">-->
-<!--            <a href="#" class="sort-link" data-sort="book_popularity" data-direction="asc"><%#= t('books.index.sort_by_popularity') %></a>-->
-<!--          </li>-->
-<!--          <li class="books-sort__link">-->
-<!--            <a href="#" class="sort-link" data-sort="book_year_of_pub" data-direction="asc"><%#= t('books.index.sort_by_date') %></a>-->
-<!--          </li>-->
           <li class="books-sort__link">
-            <%= link_to t('books.index.sort_by_rating'), books_path(sort: 'book_rating', direction: params[:direction] == 'asc' ? 'desc' : 'asc'), class: 'sort-link' %>
+            <%= link_to t('books.index.sort_by_rating'), books_path(sort: 'book_rating',
+                                   direction: params[:direction] == 'asc' ? 'desc' : 'asc',
+                                   genres: params[:genres], publishers: params[:publishers],
+                                   authors: params[:authors], publish_year: params[:publish_year],
+                                   age_rating: params[:age_rating]), class: 'sort-link' %>
           </li>
           <li class="books-sort__link">
-            <%= link_to t('books.index.sort_by_popularity'), books_path(sort: 'book_popularity', direction: params[:direction] == 'asc' ? 'desc' : 'asc'), class: 'sort-link' %>
+            <%= link_to t('books.index.sort_by_popularity'), books_path(sort: 'book_popularity',
+                                                                        direction: params[:direction] == 'asc' ? 'desc' : 'asc',
+                                                                        genres: params[:genres], publishers: params[:publishers],
+                                                                        authors: params[:authors], publish_year: params[:publish_year],
+                                                                        age_rating: params[:age_rating]), class: 'sort-link' %>
           </li>
           <li class="books-sort__link">
-            <%= link_to t('books.index.sort_by_date'), books_path(sort: 'created_at', direction: params[:direction] == 'asc' ? 'desc' : 'asc'), class: 'sort-link' %>
+            <%= link_to t('books.index.sort_by_date'), books_path(sort: 'created_at',
+                                                                  direction: params[:direction] == 'asc' ? 'desc' : 'asc',
+                                                                  genres: params[:genres], publishers: params[:publishers],
+                                                                  authors: params[:authors], publish_year: params[:publish_year],
+                                                                  age_rating: params[:age_rating]), class: 'sort-link' %>
           </li>
+<!--          <li class="books-sort__link">-->
+            <%#= link_to t('books.index.sort_by_rating'), books_path(sort: 'book_rating', direction: params[:direction] == 'asc' ? 'desc' : 'asc'), class: 'sort-link' %>
+<!--          </li>-->
+<!--          <li class="books-sort__link">-->
+            <%#= link_to t('books.index.sort_by_popularity'), books_path(sort: 'book_popularity', direction: params[:direction] == 'asc' ? 'desc' : 'asc'), class: 'sort-link' %>
+<!--          </li>-->
+<!--          <li class="books-sort__link">-->
+            <%#= link_to t('books.index.sort_by_date'), books_path(sort: 'created_at', direction: params[:direction] == 'asc' ? 'desc' : 'asc'), class: 'sort-link' %>
+<!--          </li>-->
         </ul>
       </div>
       <div class="books-list-grid">
@@ -116,68 +176,3 @@
     </div>
   </div>
 </section>
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const filterItems = document.querySelectorAll('.books-filters__item');
-        const applyButton = document.querySelector('.apply-filters');
-        const resetButton = document.querySelector('.reset-filters');
-        let selectedFilters = {};
-
-        filterItems.forEach(item => {
-            item.addEventListener('click', function() {
-                const filter = this.getAttribute('data-filter');
-                const dropdown = document.querySelector(`.${filter}-dropdown`);
-
-                // Закрити всі відкриті списки
-                document.querySelectorAll('.books-dropdown').forEach(list => {
-                    if (list !== dropdown) {
-                        list.style.display = 'none';
-                    }
-                });
-
-                // Перемикання відображення списку
-                if (dropdown.style.display === 'block') {
-                    dropdown.style.display = 'none';
-                } else {
-                    dropdown.style.display = 'block';
-                }
-            });
-        });
-
-        applyButton.addEventListener('click', function() {
-            selectedFilters = {};
-
-            document.querySelectorAll('.filter-checkbox:checked').forEach(checkbox => {
-                const filterType = checkbox.getAttribute('data-filter');
-                const filterValue = checkbox.value;
-
-                if (!selectedFilters[filterType]) {
-                    selectedFilters[filterType] = [];
-                }
-                selectedFilters[filterType].push(filterValue);
-            });
-
-            fetchBooks(selectedFilters);
-        });
-
-        resetButton.addEventListener('click', function() {
-            selectedFilters = {};
-            document.querySelectorAll('.filter-checkbox').forEach(checkbox => {
-                checkbox.checked = false;
-            });
-            fetchBooks(selectedFilters);
-        });
-
-        function fetchBooks(filters) {
-            const params = new URLSearchParams(filters);
-            console.log(filters);
-            fetch(`/books?${params.toString()}`)
-                .then(response => response.text())
-                .then(html => {
-                    document.querySelector('.books-list-grid').innerHTML = new DOMParser().parseFromString(html, 'text/html').querySelector('.books-list-grid').innerHTML;
-                });
-        }
-    });
-</script>

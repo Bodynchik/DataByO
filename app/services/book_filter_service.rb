@@ -18,7 +18,7 @@ class BookFilterService
   def filter_by_genres
     return if @params[:genres].blank?
 
-    selected_genres = @params[:genres].split(',').map(&:to_i)
+    selected_genres = parse_param(@params[:genres])
 
     @books = @books.joins(:genres)
                    .where(genres: { id: selected_genres })
@@ -26,15 +26,16 @@ class BookFilterService
   end
 
   def filter_by_publishers
-    return unless @params[:publishers].present?
-      publisher_ids = @params[:publishers].split(',').map(&:to_i)
-      @books = @books.where(publisher_id: publisher_ids)
+    return if @params[:publishers].blank?
+
+    publisher_ids = parse_param(@params[:publishers])
+    @books = @books.where(publisher_id: publisher_ids)
   end
 
   def filter_by_authors
     return if @params[:authors].blank?
 
-    selected_authors = @params[:authors].split(',').map(&:to_i)
+    selected_authors = parse_param(@params[:authors])
 
     @books = @books.joins(:authors)
                    .where(authors: { id: selected_authors })
@@ -42,20 +43,32 @@ class BookFilterService
   end
 
   def filter_by_publish_year
-    return unless @params[:publish_year].present?
-      year_of_pub = @params[:publish_year].split(',').map(&:to_i)
-      @books = @books.where(book_year_of_pub: year_of_pub)
+    return if @params[:publish_year].blank?
+
+    year_of_pub = parse_param(@params[:publish_year])
+    @books = @books.where(book_year_of_pub: year_of_pub)
   end
 
-
   def filter_by_age_rating
-    return unless @params[:age_rating].present?
-      age_ratings = @params[:age_rating].split(',')
-      @books = @books.where(book_age_rating: age_ratings)
+    return if @params[:age_rating].blank?
+
+    age_ratings = parse_param(@params[:age_rating])
+    @books = @books.where(book_age_rating: age_ratings)
   end
 
   def limit_books
     limit = @params[:limit].presence || 4
     @books = @books.limit(limit)
+  end
+
+  def parse_param(param)
+    case param
+    when String
+      # param.split(',')
+    when Array
+      param.map { |value| value.match?(/[\+\-]/) ? value : value.to_i }
+    else
+      []
+    end
   end
 end

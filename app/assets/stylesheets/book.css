@@ -40,14 +40,19 @@
 .books-dropdown {
     display: none;
     list-style: none;
+    padding-top: 5px;
     padding-left: 5px;
     margin: 0;
-    background-color: var(--color-bg-medium);
-    border-radius: var(--border-radius);
+    /*background-color: var(--color-bg-medium);*/
+    /*border-radius: var(--border-radius);*/
+}
+
+.books-filters-form label {
+    font-weight: 200;
+    font-size: 16px;
 }
 
 .books-dropdown__item {
-    /*padding: 10px;*/
     cursor: pointer;
     transition: 0.2s linear;
 }
@@ -75,6 +80,7 @@
     font-weight: 700;
     margin: 0;
     text-align: center;
+    border: none;
     transition: 0.2s linear;
 }
 

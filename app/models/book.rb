@@ -24,6 +24,7 @@ class Book < ApplicationRecord
   validate :acceptable_image
 
   before_save :set_default_book_rating
+  after_save :refresh_unique_values_cache
 
   def acceptable_image
     return unless book_image.attached?
@@ -52,7 +53,24 @@ class Book < ApplicationRecord
     %w[book_age_rating book_amount book_rating book_title book_year_of_pub created_at id id_value isbn publisher_id updated_at]
   end
 
+  def self.cached_unique_publish_years
+    Rails.cache.fetch("unique_publish_years", expires_in: 1.day) do
+      distinct.pluck(:book_year_of_pub)
+    end
+  end
+
+  def self.cached_unique_age_ratings
+    Rails.cache.fetch("unique_age_ratings", expires_in: 1.day) do
+      distinct.pluck(:book_age_rating)
+    end
+  end
+
   private
+
+  def refresh_unique_values_cache
+    Rails.cache.delete("unique_publish_years")
+    Rails.cache.delete("unique_age_ratings")
+  end
 
   def set_default_book_rating
     self.book_rating ||= 0
