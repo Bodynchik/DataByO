@@ -64,18 +64,20 @@
 
     <div class="books-container">
       <% if @top_books %>
-      <% @top_books.each do |book| %>
-        <div class="single-book">
-          <div class="book-photo">
-            <%= image_tag(book.book_image, class: 'image-grid') if book.book_image.attached? %>
-          </div>
-          <h2 class="book-title"><%= book.book_title %></h2>
-          <div class="author-and-avail">
-            <p class="book-author"><%= book.authors.map(&:full_name).join(', ') %></p>
-            <p class="avail-amount">В наявності <%= book.book_amount %></p>
-          </div>
-        </div>
-      <% end %>
+        <% @top_books.each do |book| %>
+          <%= link_to book_path(book), class: 'books-list__link' do %>
+            <div class="single-book">
+              <div class="book-photo">
+                <%= image_tag(book.book_image, class: 'image-grid') if book.book_image.attached? %>
+              </div>
+              <h2 class="book-title"><%= book.book_title %></h2>
+              <div class="author-and-avail">
+                <p class="book-author"><%= book.authors.map(&:full_name).join(', ') %></p>
+                <p class="avail-amount">В наявності <%= book.book_amount %></p>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
       <% end %>
     </div>
   </section>
@@ -88,16 +90,18 @@
 
     <div class="books-container">
       <% @top_books_by_reviews.each do |book| %>
-        <div class="single-book">
-          <div class="book-photo">
-            <%= image_tag(book.book_image, class: 'image-grid') if book.book_image.attached? %>
+        <%= link_to book_path(book), class: 'books-list__link' do %>
+          <div class="single-book">
+            <div class="book-photo">
+              <%= image_tag(book.book_image, class: 'image-grid') if book.book_image.attached? %>
+            </div>
+            <h2 class="book-title"><%= book.book_title %></h2>
+            <div class="author-and-avail">
+              <p class="book-author"><%= book.authors.map(&:full_name).join(', ') %></p>
+              <p class="avail-amount">В наявності <%= book.book_amount %></p>
+            </div>
           </div>
-          <h2 class="book-title"><%= book.book_title %></h2>
-          <div class="author-and-avail">
-            <p class="book-author"><%= book.authors.map(&:full_name).join(', ') %></p>
-            <p class="avail-amount">В наявності <%= book.book_amount %></p>
-          </div>
-        </div>
+        <% end %>
       <% end %>
     </div>
   </section>
